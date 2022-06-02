@@ -6,19 +6,29 @@ export const taskFunctions = (() => {
 
     const factory = ( title, description, dueDate, priority) => {
 
+        let status = 'incomplete';
+
         const getTitle = () => title;
         const getDescription  = () => description;
         const getDueDate  = () => dueDate;
         const getPriority  = () => priority;
-        const getStatus = () => 'uncomplete';
+        const getStatus = () => status;
 
+        const toggleStatus = () => {
+            if( status === 'incomplete'){
+                status = 'complete';
+            } else {
+                status = 'incomplete';
+            }
+        }
 
         return{
             getTitle,
             getDescription,
             getDueDate,
             getPriority,
-            getStatus
+            getStatus,
+            toggleStatus
         }
 
     }
@@ -29,16 +39,12 @@ export const taskFunctions = (() => {
 
     // Public variables/functions
 
-    const taskList = [];
-
-    const addTask = ( array ) => {
-        1
-    }
+    const tasks = [];
 
 
     return {
         factory,
-        taskList
+        tasks
     }
 
 })();

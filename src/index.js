@@ -19,12 +19,13 @@ Modules Needed
     PubSub
 
 
-Todos
+Todos (Tasks)
     Data
         title
         description
         dueData
         priority
+        status
     Able to mark complete
     Able to delete
     Able to edit
@@ -35,8 +36,6 @@ Projects
         title
         description
     Default project that all todos are in
-    What happens to todos in project if project is deleted?
-        DELETE THEM
     Able to delete
     Able to edit
     
@@ -45,6 +44,11 @@ Projects
 
 import { taskFunctions } from "./modules/tasks";
 
+window.taskFunctions = taskFunctions;
+
 console.log('hello all');
 
-console.table( taskFunctions.taskList );
+const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high');
+window.taskFunctions.tasks.push( testTask );
+
+console.table( taskFunctions.tasks );
