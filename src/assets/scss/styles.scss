@@ -34,6 +34,9 @@ body{
     margin: 0 auto;
     width: min(84%, 1160px);
 
+    &.wide{
+        width: min(84%, 1280px);
+    }
 
     &.mini{
         width: min(84%, 800px);
@@ -44,3 +47,22 @@ body{
 .center{
     text-align: center;
     justify-content: center;}
+
+// Header
+////////////////////////////////////
+
+header{
+    padding: 12px 0px;
+    background-color: $brandOne;
+
+    p{
+        margin: 0px;
+    }
+
+    .logo{
+        color: $brandThree;
+        font-size: 24px;
+        font-weight: 700;
+    }
+
+}
