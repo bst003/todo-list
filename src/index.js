@@ -7,6 +7,8 @@ General notes
     How to implement pub/sub pattern
     Filter array method for clicking on projects to sort?
     Add default category on load?
+    Where should the array of tasks be stored?
+    Where should the arrray of projects be stored?
 
 
 Modules Needed
@@ -41,4 +43,8 @@ Projects
 
 */
 
+import { taskFunctions } from "./modules/tasks";
+
 console.log('hello all');
+
+console.table( taskFunctions.taskList );

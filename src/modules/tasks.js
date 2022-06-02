@@ -10,13 +10,15 @@ export const taskFunctions = (() => {
         const getDescription  = () => description;
         const getDueDate  = () => dueDate;
         const getPriority  = () => priority;
+        const getStatus = () => 'uncomplete';
 
 
         return{
             getTitle,
             getDescription,
             getDueDate,
-            getPriority
+            getPriority,
+            getStatus
         }
 
     }
@@ -29,11 +31,14 @@ export const taskFunctions = (() => {
 
     const taskList = [];
 
-
+    const addTask = ( array ) => {
+        1
+    }
 
 
     return {
-        
+        factory,
+        taskList
     }
 
 })();

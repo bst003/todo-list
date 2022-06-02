@@ -18,9 +18,16 @@ $brandThree: #404041;
 
 html{
     height: 100%;
+
+    *{
+        box-sizing: border-box;
+    }
+
 }
 
 body{
+    display: flex;
+    flex-direction: column;
     height: 100%;
     background-color: $white;
     color: $black;
@@ -65,4 +72,25 @@ header{
         font-weight: 700;
     }
 
+}
+
+
+// Main Content
+////////////////////////////////////
+
+#content{
+    flex: 1;
+    display: flex;
+}
+
+
+#sidebar{
+    padding: 40px 25px;
+    width: clamp(320px, 20vw, 430px);
+    background-color: darken($white, 7%);
+}
+
+#main{
+    flex: 1;
+    padding: 40px;
 }
