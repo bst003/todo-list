@@ -42,13 +42,23 @@ Projects
 
 */
 
+import { generalFunctions } from "./modules/general";
+import { pubsub } from "./modules/pubsub";
 import { taskFunctions } from "./modules/tasks";
 
+// const anotherTest = (name) => {
+//     console.log(`test: ${name}`);
+// }
+
+// pubsub.subscribe('taskAdded', anotherTest);
+
+// pubsub.publish('testSub', 'Bill');
+
+
+
+// window.pubsub = pubsub;
 window.taskFunctions = taskFunctions;
 
-console.log('hello all');
 
 const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high');
-window.taskFunctions.tasks.push( testTask );
-
-console.table( taskFunctions.tasks );
+window.taskFunctions.addTask( testTask );

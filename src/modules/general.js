@@ -1,3 +1,6 @@
+import { pubsub } from "./pubsub";
+
+
 export const generalFunctions = (() => {
 
     
@@ -5,6 +8,12 @@ export const generalFunctions = (() => {
 
 
     // Public variables/functions
+
+    const testFunction = (array) => {
+        console.log(`The array has a length of: ${array.length}`);
+    }
+
+    pubsub.subscribe('taskAdded', testFunction);
 
 
     return {
