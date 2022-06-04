@@ -10,6 +10,7 @@ General notes
     Where should the array of tasks be stored?
     Where should the arrray of projects be stored?
     HOW TO TELL WHAT CATEGORY A TASK IS IN?
+    Update #title on project change
 
 
 Modules Needed
@@ -62,3 +63,5 @@ window.taskFunctions = taskFunctions;
 
 const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high');
 window.taskFunctions.addTask( testTask );
+
+// window.taskFunctions.tasks[0].getTitle()
