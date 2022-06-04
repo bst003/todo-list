@@ -13,6 +13,8 @@ export const domFunctions = (() => {
         task.setAttribute(`data-index`, index);
         task.classList.add(`task-item`, `status-${object.getStatus()}`);
 
+        
+
         return task;
 
     }
