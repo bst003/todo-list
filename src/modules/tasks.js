@@ -1,4 +1,5 @@
 import { pubsub } from "./pubsub";
+import { generalFunctions } from "./general";
 
 export const taskFunctions = (() => {
 
@@ -6,30 +7,46 @@ export const taskFunctions = (() => {
 
     const factory = ( title, description, dueDate, priority) => {
 
-        let status = 'incomplete';
+        const data = {
+            "title": title,
+            "description": description,
+            "dueDate": dueDate,
+            "priority": priority,
+            "status": 'incomplete'
+        }
 
-        const getTitle = () => title;
-        const getDescription  = () => description;
-        const getDueDate  = () => dueDate;
-        const getPriority  = () => priority;
-        const getStatus = () => status;
+        // const getTitle = () => data.title;
+        const getDescription  = () => data.description;
+        const getDueDate  = () => data.dueDate;
+        const getPriority  = () => data.priority;
+        const getStatus = () => data.status;
 
         const toggleStatus = () => {
-            if( status === 'incomplete'){
-                status = 'complete';
+            if( data.status === 'incomplete'){
+                data.status = 'complete';
             } else {
-                status = 'incomplete';
+                data.status = 'incomplete';
             }
         }
 
-        return{
-            getTitle,
+        return Object.assign(
+            {},
+            generalFunctions.titleMethods(data),
             getDescription,
             getDueDate,
             getPriority,
             getStatus,
             toggleStatus
-        }
+        )
+
+        // return{
+        //     getTitle,
+        //     getDescription,
+        //     getDueDate,
+        //     getPriority,
+        //     getStatus,
+        //     toggleStatus
+        // }
 
     }
 
