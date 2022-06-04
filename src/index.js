@@ -9,6 +9,7 @@ General notes
     Add default category on load?
     Where should the array of tasks be stored?
     Where should the arrray of projects be stored?
+    HOW TO TELL WHAT CATEGORY A TASK IS IN?
 
 
 Modules Needed
@@ -34,7 +35,6 @@ Todos (Tasks)
 Projects
     Data
         title
-        description
     Default project that all todos are in
     Able to delete
     Able to edit
