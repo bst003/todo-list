@@ -16,6 +16,7 @@ export const taskFunctions = (() => {
         }
 
         // const getTitle = () => data.title;
+
         const getDescription  = () => data.description;
         const getDueDate  = () => data.dueDate;
         const getPriority  = () => data.priority;
@@ -29,14 +30,18 @@ export const taskFunctions = (() => {
             }
         }
 
-        return Object.assign(
-            {},
-            generalFunctions.titleMethods(data),
+        const baseMethods = {
             getDescription,
             getDueDate,
             getPriority,
             getStatus,
             toggleStatus
+        }
+
+        return Object.assign(
+            {},
+            generalFunctions.titleMethods(data),
+            baseMethods
         )
 
         // return{
