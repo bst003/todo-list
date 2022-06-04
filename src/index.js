@@ -63,6 +63,6 @@ window.taskFunctions = taskFunctions;
 
 
 const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high');
-window.taskFunctions.addTask( testTask );
+// window.taskFunctions.addTask( testTask );
 
 // window.taskFunctions.tasks[0].getTitle()

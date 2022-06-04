@@ -15,8 +15,6 @@ export const taskFunctions = (() => {
             "status": 'incomplete'
         }
 
-        // const getTitle = () => data.title;
-
         const getDescription  = () => data.description;
         const getDueDate  = () => data.dueDate;
         const getPriority  = () => data.priority;
@@ -43,15 +41,6 @@ export const taskFunctions = (() => {
             generalFunctions.titleMethods(data),
             baseMethods
         )
-
-        // return{
-        //     getTitle,
-        //     getDescription,
-        //     getDueDate,
-        //     getPriority,
-        //     getStatus,
-        //     toggleStatus
-        // }
 
     }
 

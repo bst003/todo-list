@@ -39,14 +39,10 @@ body{
     position: relative;
     display: block;
     margin: 0 auto;
-    width: min(84%, 1160px);
+    width: min(84%, 1280px);
 
     &.wide{
         width: min(84%, 1640px);
-    }
-
-    &.mini{
-        width: min(84%, 800px);
     }
 
 }
@@ -93,4 +89,20 @@ header{
 #main{
     flex: 1;
     padding: 40px;
+}
+
+
+// Tasks List
+////////////////////////////////////
+
+#tasks-list{
+    margin: 40px 0px 0px;
+}
+
+
+.task-item{
+    padding: 18px 0px;
+    border-top: 1px solid $lightGray;
+    display: flex;
+
 }
