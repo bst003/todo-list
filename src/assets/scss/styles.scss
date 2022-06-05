@@ -16,6 +16,8 @@ $green: #00ac46;
 $yellow: #fdc500;
 $red: #dc0000;
 
+$site-border-radius: 6px;
+
 %transitions {
     -webkit-transition: all 0.2s ease-in;
     transition: all 0.2s ease-in;
@@ -60,8 +62,8 @@ body{
 .icon-button{
     position: relative;
     padding: 0px;
-    height: 40px;
-    width: 40px;
+    height: 35px;
+    width: 35px;
     border: initial;
     background: initial;
     cursor: pointer;
@@ -167,8 +169,10 @@ header{
     display: flex;
     align-items: center;
     justify-content: space-between;
+    gap: 18px;
 
     .priority{
+        flex: 0 0 20px;
         height: 20px;
         width: 20px;
         border-radius: 100%;
@@ -190,6 +194,7 @@ header{
     }
 
     .main{
+        flex: 1;
 
         >*:first-child{
             margin-top: 0px;
@@ -209,6 +214,21 @@ header{
         &.task-description{
             margin: 4px 0px 0px;
         }
+    }
+
+    .project,
+    .date{
+        font-weight: 600;
+    }
+
+    .project{
+        border-bottom: 2px solid $brandTwo;
+    }
+
+    .date{
+        padding: 4px 8px;
+        border-radius: $site-border-radius;
+        background-color: $brandTwo;
     }
 
 }
