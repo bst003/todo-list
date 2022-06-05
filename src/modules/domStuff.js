@@ -42,17 +42,17 @@ export const domFunctions = (() => {
         priority.classList.add(`priority`, `${object.getPriority()}`);
 
 
-        const main = document.createElement('div');
-        main.classList.add(`main`);
+        const main = _createTaskElementMain(object);
+        // main.classList.add(`main`);
 
-        const title = document.createElement('p');
-        title.classList.add('task-title');
-        title.innerText = object.getTitle();
+        // const title = document.createElement('p');
+        // title.classList.add('task-title');
+        // title.innerText = object.getTitle();
 
-        const description = document.createElement('p');
-        description.innerText = object.getDescription();
+        // const description = document.createElement('p');
+        // description.innerText = object.getDescription();
 
-        _appendChildren( main, [title, description] );
+        // _appendChildren( main, [title, description] );
 
 
         const project = document.createElement('div');
@@ -77,6 +77,34 @@ export const domFunctions = (() => {
         _appendChildren( task, [priority, main, project, date, controls] );
 
         return task;
+
+    }
+
+    const _createTaskElementMain = ( object ) => {
+
+        const appendElements = [];
+
+        const main = document.createElement('div');
+        main.classList.add(`main`);
+
+        const title = document.createElement('p');
+        title.classList.add('task-title');
+        title.innerText = object.getTitle();
+
+        appendElements.push(title);
+
+        if( object.getDescription() !== '' ){
+
+            const description = document.createElement('p');
+            description.innerText = object.getDescription();
+
+            appendElements.push(description);
+
+        }
+
+        _appendChildren( main, appendElements );
+
+        return main;
 
     }
 

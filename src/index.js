@@ -65,4 +65,7 @@ window.taskFunctions = taskFunctions;
 const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high', 'Default');
 window.taskFunctions.addTask( testTask );
 
+const testTask2 = window.taskFunctions.factory('task 2', '', '12/06/1994', 'medium', 'Default');
+window.taskFunctions.addTask( testTask2 );
+
 // window.taskFunctions.tasks[0].getTitle()

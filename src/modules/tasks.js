@@ -16,7 +16,7 @@ export const taskFunctions = (() => {
             "status": 'incomplete'
         }
 
-        const getDescription  = () => data.description;
+        const getDescription  = () => data.description ? data.description : "";
         const getDueDate  = () => data.dueDate ? data.dueDate : 'no date';
         const getPriority  = () => data.priority ? data.priority : 'low';
         const getProject  = () => data.project ? data.project : 'Default';
