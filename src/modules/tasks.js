@@ -5,19 +5,21 @@ export const taskFunctions = (() => {
 
     // Factories
 
-    const factory = ( title, description, dueDate, priority) => {
+    const factory = ( title, description, dueDate, priority, project) => {
 
         const data = {
             "title": title,
             "description": description,
             "dueDate": dueDate,
             "priority": priority,
+            "project": project,
             "status": 'incomplete'
         }
 
         const getDescription  = () => data.description;
         const getDueDate  = () => data.dueDate;
         const getPriority  = () => data.priority;
+        const getProject  = () => data.project;
         const getStatus = () => data.status;
 
         const toggleStatus = () => {
@@ -32,6 +34,7 @@ export const taskFunctions = (() => {
             getDescription,
             getDueDate,
             getPriority,
+            getProject,
             getStatus,
             toggleStatus
         }

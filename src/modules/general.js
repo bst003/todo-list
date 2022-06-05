@@ -11,7 +11,6 @@ export const generalFunctions = (() => {
 
     const titleMethods = (data) => ({
         getTitle : () => data.title ? data.title : "no title property",
-
     });
 
     const testFunction = (array) => {

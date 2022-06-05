@@ -168,7 +168,7 @@ header{
     border-top: 1px solid $lightGray;
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    justify-content: flex-start;
     gap: 18px;
 
     .priority{
@@ -207,12 +207,10 @@ header{
     }
 
     p{
-        &.task-title{
+        margin: 4px 0px 0px;
+        &.title{
             margin: 0px;
             font-weight: 700;
-        }
-        &.task-description{
-            margin: 4px 0px 0px;
         }
     }
 
@@ -222,6 +220,7 @@ header{
     }
 
     .project{
+        margin-right: 5px;
         border-bottom: 2px solid $brandTwo;
     }
 
@@ -229,6 +228,11 @@ header{
         padding: 4px 8px;
         border-radius: $site-border-radius;
         background-color: $brandTwo;
+    }
+
+    .controls{
+        display: flex;
+        gap: 4px;
     }
 
 }

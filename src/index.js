@@ -62,7 +62,7 @@ pubsub.publish('testSub', 'Bill');
 window.taskFunctions = taskFunctions;
 
 
-const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high');
-// window.taskFunctions.addTask( testTask );
+const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high', 'Default');
+window.taskFunctions.addTask( testTask );
 
 // window.taskFunctions.tasks[0].getTitle()
