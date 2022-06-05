@@ -88,7 +88,7 @@ export const domFunctions = (() => {
         main.classList.add(`main`);
 
         const title = document.createElement('p');
-        title.classList.add('task-title');
+        title.classList.add('title');
         title.innerText = object.getTitle();
 
         appendElements.push(title);
