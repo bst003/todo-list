@@ -17,9 +17,9 @@ export const taskFunctions = (() => {
         }
 
         const getDescription  = () => data.description;
-        const getDueDate  = () => data.dueDate;
-        const getPriority  = () => data.priority;
-        const getProject  = () => data.project;
+        const getDueDate  = () => data.dueDate ? data.dueDate : 'no date';
+        const getPriority  = () => data.priority ? data.priority : 'low';
+        const getProject  = () => data.project ? data.project : 'Default';
         const getStatus = () => data.status;
 
         const toggleStatus = () => {
