@@ -111,6 +111,8 @@ export const domFunctions = (() => {
 
     // Public variables/functions
 
+    // CHANGE TO renderTasksList AND ONLY RUN ON LOAD
+    // CREATE NEW FUNCTION renderTask TO ADD INDIVIDUAL NEW TASKS
     const renderTasks = (array) => {
 
         array.forEach( ( object, index ) => {
