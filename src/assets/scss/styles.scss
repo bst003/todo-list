@@ -190,12 +190,25 @@ header{
 
 
 .task-item{
-    padding: 18px 0px;
+    padding: 18px 12px;
     border-top: 1px solid $lightGray;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 18px;
+
+    &.complete{
+        background-color: darken($white, 5%);
+
+        .title{
+
+            &::after{
+                content: "- COMPLETE";
+            }
+
+        }
+
+    }
 
     .priority{
         flex: 0 0 20px;
@@ -235,8 +248,16 @@ header{
     p{
         margin: 4px 0px 0px;
         &.title{
+            position: relative;
             margin: 0px;
             font-weight: 700;
+
+            &::after{
+                content: "";
+                margin: 0px 0px 0px 3px;
+                color: $brandOne;
+            }
+
         }
     }
 
