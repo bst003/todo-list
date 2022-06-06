@@ -1,4 +1,6 @@
 import './assets/scss/styles.scss';
+import '~ldcover/index.css';
+import '~ldcover/index.js';
 
 /*
 
@@ -62,3 +64,5 @@ const testTask2 = window.taskFunctions.factory('task 2', '', '12/06/1994', 'medi
 window.taskFunctions.addTask( testTask2 );
 
 // window.taskFunctions.tasks[0].getTitle()
+
+const ldcv = new ldCover({ root: "#add-task" }); 

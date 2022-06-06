@@ -1,5 +1,8 @@
 const path = require('path');
 
+// @import '~react-select/dist/react-datetime.css';
+
+
 module.exports = {
   mode: 'development',
   entry: './src/index.js',
@@ -21,5 +24,10 @@ module.exports = {
         ],
       },
     ],
+  },
+  resolve: {
+    alias: {
+      'ldcover': path.resolve(__dirname, './node_modules/ldcover'),
+    }
   },
 };
