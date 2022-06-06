@@ -43,16 +43,6 @@ export const domFunctions = (() => {
 
 
         const main = _createTaskElementMain(object);
-        // main.classList.add(`main`);
-
-        // const title = document.createElement('p');
-        // title.classList.add('task-title');
-        // title.innerText = object.getTitle();
-
-        // const description = document.createElement('p');
-        // description.innerText = object.getDescription();
-
-        // _appendChildren( main, [title, description] );
 
 
         const project = document.createElement('div');
@@ -111,9 +101,18 @@ export const domFunctions = (() => {
 
     // Public variables/functions
 
-    // CHANGE TO renderTasksList AND ONLY RUN ON LOAD
-    // CREATE NEW FUNCTION renderTask TO ADD INDIVIDUAL NEW TASKS
-    const renderTasks = (array) => {
+    const renderTask = (data) => {
+
+        console.log(data);
+
+        const task = _createTaskElement( data.object, data.array.length );
+
+        _tasksList.appendChild( task );
+
+    }
+
+
+    const renderTasksList = (array) => {
 
         array.forEach( ( object, index ) => {
 
@@ -128,7 +127,7 @@ export const domFunctions = (() => {
 
     // PubSubs
 
-    pubsub.subscribe('taskAdded', renderTasks);
+    pubsub.subscribe('taskAdded', renderTask);
 
 
     return {

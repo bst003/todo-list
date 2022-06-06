@@ -13,14 +13,14 @@ export const generalFunctions = (() => {
         getTitle : () => data.title ? data.title : "no title property",
     });
 
-    const testFunction = (array) => {
-        console.log(`The array has a length of: ${array.length}`);
-    }
+    // const testFunction = (array) => {
+    //     console.log(`The array has a length of: ${array.length}`);
+    // }
 
 
     // PubSubs
 
-    pubsub.subscribe('taskAdded', testFunction);
+    // pubsub.subscribe('taskAdded', testFunction);
 
 
     return {

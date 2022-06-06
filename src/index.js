@@ -48,13 +48,6 @@ import { domFunctions } from "./modules/domStuff";
 import { pubsub } from "./modules/pubsub";
 import { taskFunctions } from "./modules/tasks";
 
-const anotherTest = (name) => {
-    console.log(`test: ${name}`);
-}
-
-pubsub.subscribe('taskAdded', anotherTest);
-
-pubsub.publish('testSub', 'Bill');
 
 
 

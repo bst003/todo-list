@@ -56,10 +56,15 @@ export const taskFunctions = (() => {
     const tasks = [];
 
     const addTask = (object) => {
+        
         tasks.push(object);
-        console.table(tasks);
-        pubsub.publish('taskAdded', tasks);
-        console.log('hello world');
+
+        const data = {
+            object: object,
+            array: tasks
+        }
+
+        pubsub.publish('taskAdded', data );
     }
 
 
