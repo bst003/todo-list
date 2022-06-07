@@ -1,7 +1,5 @@
 const path = require('path');
 
-// @import '~react-select/dist/react-datetime.css';
-
 
 module.exports = {
   mode: 'development',
@@ -12,6 +10,10 @@ module.exports = {
   },
   module: {
     rules: [
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
       {
         test: /\.s[ac]ss$/i,
         use: [

@@ -1,6 +1,11 @@
 import './assets/scss/styles.scss';
-import '~ldcover/index.css';
-import '~ldcover/index.js';
+import './assets/css/modal.css';
+import MicroModal from 'micromodal';  // es6 module
+import { compareAsc, format } from 'date-fns'
+// import '../node_modules/ldcover/index.css';  
+// import '../node_modules/ldcover/index.js';
+// require('ldcover/index.js');
+
 
 /*
 
@@ -65,4 +70,11 @@ window.taskFunctions.addTask( testTask2 );
 
 // window.taskFunctions.tasks[0].getTitle()
 
-const ldcv = new ldCover({ root: "#add-task" }); 
+// const ldcv = new ldCover({ root: "#add-task" }); 
+
+// // ldcv.toggle();
+
+// const trigger = document.querySelector('#trigger');
+// trigger.addEventListener('click', ldcv.toggle );
+
+MicroModal.init();
