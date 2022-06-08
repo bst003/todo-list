@@ -1,12 +1,8 @@
 import './assets/scss/styles.scss';
 import './assets/css/modal.css';
-// import MicroModal from 'micromodal';  // es6 module
 import '../node_modules/rmodal/dist/rmodal.js';
 import '../node_modules/rmodal/dist/rmodal.css';
 import { compareAsc, format } from 'date-fns'
-// import '../node_modules/ldcover/index.css';  
-// import '../node_modules/ldcover/index.js';
-// require('ldcover/index.js');
 
 
 /*
@@ -70,16 +66,6 @@ window.taskFunctions.addTask( testTask );
 const testTask2 = window.taskFunctions.factory('task 2', '', '12/06/1994', 'medium', 'Default');
 window.taskFunctions.addTask( testTask2 );
 
-// window.taskFunctions.tasks[0].getTitle()
-
-// const ldcv = new ldCover({ root: "#add-task" }); 
-
-// // ldcv.toggle();
-
-// const trigger = document.querySelector('#trigger');
-// trigger.addEventListener('click', ldcv.toggle );
-
-// MicroModal.init();
 
 window.onload = function() {
     var modal = new RModal(document.getElementById('modal'), {
