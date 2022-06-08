@@ -1,6 +1,8 @@
 import './assets/scss/styles.scss';
 import './assets/css/modal.css';
-import MicroModal from 'micromodal';  // es6 module
+// import MicroModal from 'micromodal';  // es6 module
+import '../node_modules/rmodal/dist/rmodal.js';
+import '../node_modules/rmodal/dist/rmodal.css';
 import { compareAsc, format } from 'date-fns'
 // import '../node_modules/ldcover/index.css';  
 // import '../node_modules/ldcover/index.js';
@@ -77,4 +79,44 @@ window.taskFunctions.addTask( testTask2 );
 // const trigger = document.querySelector('#trigger');
 // trigger.addEventListener('click', ldcv.toggle );
 
-MicroModal.init();
+// MicroModal.init();
+
+window.onload = function() {
+    var modal = new RModal(document.getElementById('modal'), {
+        //content: 'Abracadabra'
+        beforeOpen: function(next) {
+            console.log('beforeOpen');
+            next();
+        },
+        afterOpen: function() {
+            console.log('opened');
+        },
+        beforeClose: function(next) {
+            console.log('beforeClose');
+            next();
+        },
+        afterClose: function() {
+            console.log('closed');
+        },
+        dialogOpenClass: 'animate__slideInDown',
+        dialogCloseClass: 'animate__slideOutUp'
+        // bodyClass: 'modal-open',
+        // dialogClass: 'modal-dialog',
+
+        // focus: true,
+        // focusElements: ['input.form-control', 'textarea', 'button.btn-primary'],
+
+        // escapeClose: true
+    });
+
+    document.addEventListener('keydown', function(ev) {
+        modal.keydown(ev);
+    }, false);
+
+    document.getElementById('showModal').addEventListener("click", function(ev) {
+        ev.preventDefault();
+        modal.open();
+    }, false);
+
+    window.modal = modal;
+}

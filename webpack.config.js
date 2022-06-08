@@ -29,7 +29,7 @@ module.exports = {
   },
   resolve: {
     alias: {
-      'ldcover': path.resolve(__dirname, './node_modules/ldcover'),
+      'rmodal': path.resolve(__dirname, './node_modules/rmodal/dist'),
     }
   },
 };
