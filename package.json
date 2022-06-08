@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/bst003/todo-list#readme",
   "devDependencies": {
+    "animate.css": "^4.1.1",
     "css-loader": "^6.7.1",
     "date-fns": "^2.28.0",
     "micromodal": "^0.4.10",

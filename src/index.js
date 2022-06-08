@@ -1,7 +1,7 @@
 import './assets/scss/styles.scss';
-import './assets/css/modal.css';
-import '../node_modules/rmodal/dist/rmodal.js';
-import '../node_modules/rmodal/dist/rmodal.css';
+
+import 'animate.css';
+
 import { compareAsc, format } from 'date-fns'
 
 
@@ -84,8 +84,8 @@ window.onload = function() {
         afterClose: function() {
             console.log('closed');
         },
-        dialogOpenClass: 'animate__slideInDown',
-        dialogCloseClass: 'animate__slideOutUp'
+        dialogOpenClass: 'animate__fadeInDown',
+        dialogCloseClass: 'animate__fadeOutUp'
         // bodyClass: 'modal-open',
         // dialogClass: 'modal-dialog',
 
