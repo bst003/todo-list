@@ -46,11 +46,7 @@
                     All Tasks
                 </div>
 
-                <button id="showModal">Try Me</button>
-
-                <!-- <button id="trigger" data-micromodal-trigger="modal-1">Try Me</button>
-
-                <button id="trigger" data-micromodal-trigger="modal-2">Modal 2</button> -->
+                <button id="showModal">Add Task</button>
 
                 <div id="tasks-list">
 
@@ -90,31 +86,65 @@
 
     </div>
 
-    <div id="modal" class="modal">
-      <div class="modal-dialog animate__animated">
-          <div class="modal-content">
-              <form class="form-horizontal" method="get">
-                  <div class="modal-header">
-                      <strong>Yep, I'm a dialog...</strong>
-                  </div>
 
-                  <div class="modal-body">
-                      <div class="form-group">
-                          <label for="dummyText" class="control-label col-xs-4">Dummy text</label>
-                          <div class="input-group col-xs-7">
-                              <input type="text" name="dummyText" id="dummyText" class="form-control" />
-                          </div>
-                      </div>
-                  </div>
+    <div id="add-task-modal" class="modal">
+        <div class="modal-dialog animate__animated">    
+            <div class="modal-content">
+                <form class="form-horizontal" method="get">
+                    <div class="modal-header">
 
-                  <div class="modal-footer">
-                      <button class="btn btn-default" type="button" onclick="modal.close();">Cancel</button>
-                      <button class="btn btn-primary" type="submit" onclick="modal.close();">Save</button>
-                  </div>
+                        <p class="h4">
+                            <strong>Add Task</strong>
+                        </p>
+
+                        <button 
+                            class="icon-button close" 
+                            type="button" 
+                            onclick="modal.close();"
+                        >
+                        </button>
+                    </div>
+
+                    <div class="modal-body">
+
+                        <div class="form-group">
+                            <label for="task-title" class="">Title</label>
+                            <input type="text" name="task-title" id="task-title" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="task-decription" class="">Description</label>
+                            <textarea name="task-description" id="task-description" >
+
+                            </textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="task-due-date" class="">Due Date</label>
+                            <input type="date" name="task-due-date" id="task-due-date" />
+                        </div>
+
+                        <div class="form-group">
+                            <label for="task-priority" class="">Priority</label>
+                            <select name="task-priority" id="task-priority">
+                                <option value="low">Low</option>
+                                <option value="medium">Medium</option>
+                                <option value="high">High</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="task-project" class="">Project</label>
+                            <select name="task-project" id="task-project">
+                                <option value="default">Default</option>
+                            </select>
+                        </div>
+
+                    </div>
+
               </form>
-          </div>
+            </div>
         </div>
-      </div>
+    </div>
 
     <script src="../node_modules/rmodal/dist/rmodal.js"></script>
     <script src="main.js"></script>
