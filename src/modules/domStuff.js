@@ -6,6 +6,7 @@ export const domFunctions = (() => {
     // Private variables/functions
 
     const _tasksList = document.querySelector('#tasks-list');
+    const _projectsList = document.querySelector('#projects-list');
 
     const _appendChildren = ( parent, childArray ) => {
 
@@ -31,6 +32,18 @@ export const domFunctions = (() => {
         return button;
 
     }
+
+
+    const _createProjectElement = ( object, index ) => {
+
+        const project = document.createElement('button');
+        project.setAttribute(`data-index`, index);
+        project.innerText = object.getTitle();
+
+        return project;
+
+    }
+
 
     const _createTaskElement = ( object, index ) => {
 
@@ -101,6 +114,16 @@ export const domFunctions = (() => {
 
     // Public variables/functions
 
+    const renderProject = (data) => {
+
+        console.log(data);
+
+        const project = _createProjectElement( data.object, data.array.length );
+
+        _projectsList.appendChild( project );
+
+    }
+
     const renderTask = (data) => {
 
         console.log(data);
@@ -128,6 +151,8 @@ export const domFunctions = (() => {
     // PubSubs
 
     pubsub.subscribe('taskAdded', renderTask);
+
+    pubsub.subscribe('projectAdded', renderProject);
 
 
     return {

@@ -48,16 +48,17 @@ Projects
 
 */
 
-import { generalFunctions } from "./modules/general";
+// import { generalFunctions } from "./modules/general";
 import { domFunctions } from "./modules/domStuff";
 import { pubsub } from "./modules/pubsub";
 import { taskFunctions } from "./modules/tasks";
+import { projectFunctions } from "./modules/projects";
 
 
 
 
-// window.pubsub = pubsub;
 window.taskFunctions = taskFunctions;
+window.projectFunctions = projectFunctions;
 
 
 const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high', 'Default');
@@ -65,6 +66,9 @@ window.taskFunctions.addTask( testTask );
 
 const testTask2 = window.taskFunctions.factory('task 2', '', '12/06/1994', 'medium', 'Default');
 window.taskFunctions.addTask( testTask2 );
+
+const testProject = window.projectFunctions.factory('Test Project');
+window.projectFunctions.addProject( testProject );
 
 
 window.onload = function() {
