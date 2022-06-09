@@ -71,9 +71,19 @@ const testProject = window.projectFunctions.factory('Test Project');
 window.projectFunctions.addProject( testProject );
 
 
-window.onload = function() {
-    var modal = new RModal(document.getElementById('modal'), {
-        //content: 'Abracadabra'
+
+
+
+
+/*
+
+REWORK/CLEAN UP AT LATER TIME
+
+*/
+
+
+// window.onload = function() {
+    var modal = new RModal(document.getElementById('add-task-modal'), {
         beforeOpen: function(next) {
             console.log('beforeOpen');
             next();
@@ -90,13 +100,6 @@ window.onload = function() {
         },
         dialogOpenClass: 'animate__fadeInDown',
         dialogCloseClass: 'animate__fadeOutUp'
-        // bodyClass: 'modal-open',
-        // dialogClass: 'modal-dialog',
-
-        // focus: true,
-        // focusElements: ['input.form-control', 'textarea', 'button.btn-primary'],
-
-        // escapeClose: true
     });
 
     document.addEventListener('keydown', function(ev) {
@@ -109,4 +112,4 @@ window.onload = function() {
     }, false);
 
     window.modal = modal;
-}
+// }

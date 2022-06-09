@@ -85,6 +85,11 @@ h3,
     font-size: 26px;
 }
 
+h4,
+.h4{
+    font-size: 22px;
+}
+
 .icon-button{
     position: relative;
     padding: 0px;
@@ -111,6 +116,12 @@ h3,
         font-family: 'Font Awesome 5 Free';
         font-size: 20px;
         font-weight: 900;
+    }
+
+    &.close{
+        &::before{
+            content: "\f057";
+        }
     }
 
     &.complete{
@@ -179,6 +190,10 @@ header{
     }
 
 }
+
+
+// Projects List
+////////////////////////////////////
 
 
 // Tasks List
@@ -282,4 +297,41 @@ header{
         gap: 4px;
     }
 
+}
+
+// Modals
+////////////////////////////////////
+
+.modal-dialog{
+    max-width: 440px;
+    width: 100%;
+    overflow: hidden;
+}
+
+.modal-header{
+    padding: 12px 16px;
+    background-color: $brandOne;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    p{
+        margin: 0px;
+    }
+
+    button{
+        color: $white;
+
+        &:hover{
+            &::before{
+                color: $brandThree;
+            }
+        }
+
+    }
+
+}
+
+.modal-body{
+    padding: 12px 16px;
 }
