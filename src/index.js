@@ -112,4 +112,10 @@ REWORK/CLEAN UP AT LATER TIME
     }, false);
 
     window.modal = modal;
+
+    const closeTaskModal = () => {
+        modal.close()
+    }
+
+    pubsub.subscribe('postSubmitTask', closeTaskModal );
 // }

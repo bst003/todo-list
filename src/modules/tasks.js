@@ -111,11 +111,15 @@ export const taskFunctions = (() => {
 
         addTask(task);
 
+        pubsub.publish('postSubmitTask');
+
     }
 
     // PubSubs
 
     pubsub.subscribe('submitTask', submitNewTask);
+
+    pubsub.subscribe('postSubmitTask', _resetTaskFormValues);
 
 
     return {
