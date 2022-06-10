@@ -148,11 +148,26 @@ export const domFunctions = (() => {
     }
 
 
+    const setUpTaskFormListener = () =>{
+
+        const form = document.querySelector('#add-task-modal form');
+
+        // form.addEventListener('submit', pubsub.publish('submitTask', e ) );
+
+        form.addEventListener('submit', function(e) {
+            pubsub.publish('submitTask', e );
+        });
+
+    }
+
+
     // PubSubs
 
     pubsub.subscribe('taskAdded', renderTask);
 
     pubsub.subscribe('projectAdded', renderProject);
+
+    pubsub.subscribe('pageLoad', setUpTaskFormListener);
 
 
     return {

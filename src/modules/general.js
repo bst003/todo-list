@@ -13,14 +13,22 @@ export const generalFunctions = (() => {
         getTitle : () => data.title ? data.title : "no title property",
     });
 
-    // const testFunction = (array) => {
-    //     console.log(`The array has a length of: ${array.length}`);
+    // const submitNewTask = (e) => {
+
+    //     e.preventDefault();
+
+    //     const data = _gatherTaskFormValues();
+
+
+
+    //     // pubsub.publish('submitTask', data );
+
     // }
 
 
     // PubSubs
 
-    // pubsub.subscribe('taskAdded', testFunction);
+    // pubsub.subscribe('submitTask', _gatherTaskFormValues);
 
 
     return {

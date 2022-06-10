@@ -72,7 +72,7 @@ window.projectFunctions.addProject( testProject );
 
 
 
-
+pubsub.publish('pageLoad');
 
 
 /*
