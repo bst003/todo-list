@@ -9,29 +9,41 @@ export const generalFunctions = (() => {
 
     // Public variables/functions
 
+    const taskModal = new RModal(document.getElementById('add-task-modal'), {
+        dialogOpenClass: 'animate__fadeInDown',
+        dialogCloseClass: 'animate__fadeOutUp'
+    });
+
+
+    const closeModal = ( event, modalObject ) => {
+
+        console.log( modalObject );
+
+        event.preventDefault();
+        modalObject.close();
+    };
+
+
+    const openModal = ( event, modalObject ) => {
+        
+        console.log( modalObject );
+        
+        event.preventDefault();
+        modalObject.open();
+    };
+
+
     const titleMethods = (data) => ({
         getTitle : () => data.title ? data.title : "no title property",
     });
 
-    // const submitNewTask = (e) => {
-
-    //     e.preventDefault();
-
-    //     const data = _gatherTaskFormValues();
-
-
-
-    //     // pubsub.publish('submitTask', data );
-
-    // }
 
 
     // PubSubs
 
-    // pubsub.subscribe('submitTask', _gatherTaskFormValues);
-
 
     return {
+        taskModal,
         titleMethods
     }
 

@@ -48,7 +48,7 @@ Projects
 
 */
 
-// import { generalFunctions } from "./modules/general";
+import { generalFunctions } from "./modules/general";
 import { domFunctions } from "./modules/domStuff";
 import { pubsub } from "./modules/pubsub";
 import { taskFunctions } from "./modules/tasks";
@@ -70,9 +70,10 @@ window.taskFunctions.addTask( testTask2 );
 const testProject = window.projectFunctions.factory('Test Project');
 window.projectFunctions.addProject( testProject );
 
+// generalFunctions.taskModal.open();
 
 
-pubsub.publish('pageLoad');
+pubsub.publish('pageLoad', generalFunctions.taskModal );
 
 
 /*
@@ -82,40 +83,26 @@ REWORK/CLEAN UP AT LATER TIME
 */
 
 
-// window.onload = function() {
-    var modal = new RModal(document.getElementById('add-task-modal'), {
-        beforeOpen: function(next) {
-            console.log('beforeOpen');
-            next();
-        },
-        afterOpen: function() {
-            console.log('opened');
-        },
-        beforeClose: function(next) {
-            console.log('beforeClose');
-            next();
-        },
-        afterClose: function() {
-            console.log('closed');
-        },
-        dialogOpenClass: 'animate__fadeInDown',
-        dialogCloseClass: 'animate__fadeOutUp'
-    });
+    // var modal = new RModal(document.getElementById('add-task-modal'), {
+    //     dialogOpenClass: 'animate__fadeInDown',
+    //     dialogCloseClass: 'animate__fadeOutUp'
+    // });
 
+    /* DONT ADD BACK
     document.addEventListener('keydown', function(ev) {
         modal.keydown(ev);
     }, false);
+    */
 
-    document.getElementById('showModal').addEventListener("click", function(ev) {
-        ev.preventDefault();
-        modal.open();
-    }, false);
+    // document.getElementById('showModal').addEventListener("click", function(ev) {
+    //     ev.preventDefault();
+    //     modal.open();
+    // }, false);
 
-    window.modal = modal;
+    // window.modal = modal;
 
-    const closeTaskModal = () => {
-        modal.close()
-    }
+    // const closeTaskModal = () => {
+    //     modal.close()
+    // }
 
-    pubsub.subscribe('postSubmitTask', closeTaskModal );
-// }
+    // pubsub.subscribe('postSubmitTask', closeTaskModal );
