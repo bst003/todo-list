@@ -159,17 +159,28 @@ export const domFunctions = (() => {
     }
 
 
-    const setUpTaskModal = ( modalObject ) =>{
+    const setUpModal = ( modal ) =>{
 
-        const showModal = document.querySelector('#show-task-modal');
-        const closeModal = document.querySelector('#add-task-modal .close');
+        // const showModal = document.querySelector('#show-task-modal');
+        // const closeModal = document.querySelector('#add-task-modal .close');
+
+        // showModal.addEventListener('click', function(e) {
+        //     modalObject.open();
+        // });
+
+        // closeModal.addEventListener('click', function(e) {
+        //     modalObject.close();
+        // });
+
+        const showModal = document.querySelector( modal.getOpenElement() );
+        const closeModal = document.querySelector( modal.getCloseElement() );
 
         showModal.addEventListener('click', function(e) {
-            modalObject.open();
+            modal.modalObject.open();
         });
 
         closeModal.addEventListener('click', function(e) {
-            modalObject.close();
+            modal.modalObject.close();
         });
 
     }
@@ -182,7 +193,7 @@ export const domFunctions = (() => {
     pubsub.subscribe('projectAdded', renderProject);
 
     pubsub.subscribe('pageLoad', setUpTaskFormListener);
-    pubsub.subscribe('pageLoad', setUpTaskModal);
+    pubsub.subscribe('pageLoad', setUpModal);
 
 
     return {

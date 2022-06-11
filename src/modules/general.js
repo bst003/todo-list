@@ -3,34 +3,39 @@ import { pubsub } from "./pubsub";
 
 export const generalFunctions = (() => {
 
+    // Factories
+
+    const Modal = ( modalElement, openModalElement, closeModalElement ) => {
+
+        const modalObject = new RModal(document.querySelector(modalElement), {
+            dialogOpenClass: 'animate__fadeInDown',
+            dialogCloseClass: 'animate__fadeOutUp'
+        });
+
+        const getOpenElement  = () => openModalElement;
+        const getCloseElement  = () => closeModalElement;
+
+        const closeModal = () => {
+            modalObject.close();
+        }
+
+        return {
+            modalObject,
+            getOpenElement,
+            getCloseElement,
+            closeModal
+        }
+
+    }
+
     
     // Private variables/functions
 
 
     // Public variables/functions
 
-    const taskModal = new RModal(document.getElementById('add-task-modal'), {
-        dialogOpenClass: 'animate__fadeInDown',
-        dialogCloseClass: 'animate__fadeOutUp'
-    });
+    const taskModal = Modal('#add-task-modal', '#show-task-modal', '#add-task-modal .close');
 
-
-    const closeModal = ( event, modalObject ) => {
-
-        console.log( modalObject );
-
-        event.preventDefault();
-        modalObject.close();
-    };
-
-
-    const openModal = ( event, modalObject ) => {
-        
-        console.log( modalObject );
-        
-        event.preventDefault();
-        modalObject.open();
-    };
 
 
     const titleMethods = (data) => ({
@@ -40,6 +45,7 @@ export const generalFunctions = (() => {
 
 
     // PubSubs
+    pubsub.subscribe('postSubmitTask', taskModal.closeModal );
 
 
     return {
