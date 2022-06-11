@@ -72,6 +72,8 @@ window.projectFunctions.addProject( testProject );
 
 // generalFunctions.taskModal.open();
 
+// window.taskFunctions.tasks[0].toggleStatus();
+
 
 pubsub.publish('pageLoad', generalFunctions.taskModal );
 
