@@ -37,7 +37,6 @@ export const generalFunctions = (() => {
     const taskModal = Modal('#add-task-modal', '#show-task-modal', '#add-task-modal .close');
 
 
-
     const titleMethods = (data) => ({
         getTitle : () => data.title ? data.title : "no title property",
     });

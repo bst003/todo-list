@@ -112,6 +112,28 @@ export const domFunctions = (() => {
     }
 
 
+    const setUpTaskItemCompleteListeners = () => {
+
+        const completeButtons = document.querySelectorAll('.task-item .complete');
+
+        completeButtons.forEach( (button) => {
+
+            button.addEventListener('click', function(e)  {
+                console.log(e);
+            });
+
+        })
+
+    }
+
+
+    const setUpTaskItemListener = () => {
+
+        setUpTaskItemCompleteListeners();
+
+    }
+
+
     // Public variables/functions
 
     const renderProject = (data) => {
@@ -159,18 +181,8 @@ export const domFunctions = (() => {
     }
 
 
+    // Takes a modal object defined using the modal factory
     const setUpModal = ( modal ) =>{
-
-        // const showModal = document.querySelector('#show-task-modal');
-        // const closeModal = document.querySelector('#add-task-modal .close');
-
-        // showModal.addEventListener('click', function(e) {
-        //     modalObject.open();
-        // });
-
-        // closeModal.addEventListener('click', function(e) {
-        //     modalObject.close();
-        // });
 
         const showModal = document.querySelector( modal.getOpenElement() );
         const closeModal = document.querySelector( modal.getCloseElement() );
@@ -194,6 +206,7 @@ export const domFunctions = (() => {
 
     pubsub.subscribe('pageLoad', setUpTaskFormListener);
     pubsub.subscribe('pageLoad', setUpModal);
+    pubsub.subscribe('pageLoad', setUpTaskItemListener);
 
 
     return {
