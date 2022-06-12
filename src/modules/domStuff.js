@@ -134,6 +134,15 @@ export const domFunctions = (() => {
     }
 
 
+    const _removeSingleTaskCompleteListeners = (index) => {
+
+        const completeButton = document.querySelector(`.task-item[data-index="${index}"] .complete`);
+
+        completeButton.removeEventListener('click', _toggleTaskElementStatus );
+
+    }
+
+
     const _addTaskDeleteListeners = () => {
 
         const deleteButtons = document.querySelectorAll('.task-item .delete');
@@ -174,7 +183,7 @@ export const domFunctions = (() => {
 
         pubsub.publish('updateTask', taskIndex);
 
-        addSingleTaskElementListeners( taskIndex );
+        // addSingleTaskElementListeners( taskIndex );
 
     }
 
@@ -200,14 +209,17 @@ export const domFunctions = (() => {
             const task = _createTaskElement( data.object, data.array.length - 1 );
 
             _tasksList.appendChild( task );
+            addSingleTaskElementListeners( data.array.length - 1 );
             console.log('null index');
         }
 
         if( data.index !== undefined ){
             const task = _createTaskElement( data.object, data.index );
+
+            removeSingleTaskElementListeners( data.index );
             
-            // _tasksList.removeChild( _tasksList.childNodes[data.index] );
             _tasksList.replaceChild(task, _tasksList.children[data.index] );
+            addSingleTaskElementListeners( data.index );
             console.log( 'index accepted' );
         }
 
@@ -240,9 +252,18 @@ export const domFunctions = (() => {
 
     const addSingleTaskElementListeners = (index) => {
 
-        console.log(`reset listeners for todo with index: ${index}`);
+        // console.log(`reset listeners for todo with index: ${index}`);
 
         _addSingleTaskCompleteListeners(index);
+
+    }
+
+
+    const removeSingleTaskElementListeners = (index) => {
+
+        // console.log(`reset listeners for todo with index: ${index}`);
+
+        _removeSingleTaskCompleteListeners(index);
 
     }
 
