@@ -77,3 +77,20 @@ window.projectFunctions.addProject( testProject );
 
 
 pubsub.publish('pageLoad', generalFunctions.taskModal );
+
+
+/*
+
+CREATE FUNCTION TO REMOVE LISTENERS TO NEWLY ADDED TASK ITEMS
+    Will need to run on following:
+        Task added
+        Task Completed
+        Task edited
+
+CREATE FUNCTION TO ADD LISTENERS TO NEWLY ADDED TASK ITEMS
+    Will need to run on following:
+        Task added
+        Task Completed
+        Task edited
+
+*/
