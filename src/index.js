@@ -77,35 +77,3 @@ window.projectFunctions.addProject( testProject );
 
 
 pubsub.publish('pageLoad', generalFunctions.taskModal );
-
-
-/*
-
-REWORK/CLEAN UP AT LATER TIME
-
-*/
-
-
-    // var modal = new RModal(document.getElementById('add-task-modal'), {
-    //     dialogOpenClass: 'animate__fadeInDown',
-    //     dialogCloseClass: 'animate__fadeOutUp'
-    // });
-
-    /* DONT ADD BACK
-    document.addEventListener('keydown', function(ev) {
-        modal.keydown(ev);
-    }, false);
-    */
-
-    // document.getElementById('showModal').addEventListener("click", function(ev) {
-    //     ev.preventDefault();
-    //     modal.open();
-    // }, false);
-
-    // window.modal = modal;
-
-    // const closeTaskModal = () => {
-    //     modal.close()
-    // }
-
-    // pubsub.subscribe('postSubmitTask', closeTaskModal );

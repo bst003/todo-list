@@ -231,7 +231,7 @@ header{
     justify-content: flex-start;
     gap: 18px;
 
-    &.complete{
+    &.status-complete{
         background-color: darken($white, 5%);
 
         .title{

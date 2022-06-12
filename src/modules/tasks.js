@@ -116,6 +116,22 @@ export const taskFunctions = (() => {
     }
 
 
+    const updateTask = (index) => {
+
+        console.log(`index is ${index}`);
+        
+        const object = tasks[index];
+
+        const data = {
+            object: object,
+            array: tasks,
+            index: index,
+        }
+
+        pubsub.publish('taskAdded', data );
+    }
+
+
     const toggleTaskStatus = (index) => {
 
         tasks[index].toggleStatus();
@@ -124,6 +140,8 @@ export const taskFunctions = (() => {
 
 
     // PubSubs
+
+    pubsub.subscribe('updateTask', updateTask);
 
     pubsub.subscribe('toggleTaskStatus', toggleTaskStatus );
 

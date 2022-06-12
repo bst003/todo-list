@@ -19,13 +19,6 @@ export const domFunctions = (() => {
     }
 
 
-    const _clickTaskCompleteButton = (e) =>{
-
-        console.log(e);
-
-    }
-
-
     const _createIconButton = ( array ) => {
 
         const buttonClasses = array;
@@ -45,7 +38,7 @@ export const domFunctions = (() => {
     const _createProjectElement = ( object, index ) => {
 
         const project = document.createElement('button');
-        project.setAttribute(`data-index`, index - 1);
+        project.setAttribute(`data-index`, index);
         project.innerText = object.getTitle();
 
         return project;
@@ -56,7 +49,7 @@ export const domFunctions = (() => {
     const _createTaskElement = ( object, index ) => {
 
         const task = document.createElement('div');
-        task.setAttribute(`data-index`, index - 1);
+        task.setAttribute(`data-index`, index );
         task.classList.add(`task-item`, `status-${object.getStatus()}`);
 
         const priority = document.createElement('div');
@@ -120,24 +113,28 @@ export const domFunctions = (() => {
     }
 
 
-    const _setUpTaskItemCompleteListeners = () => {
+    const _setUpTaskElementCompleteListeners = () => {
 
         const completeButtons = document.querySelectorAll('.task-item .complete');
 
         completeButtons.forEach( (button) => {
 
-            button.addEventListener('click', _toggleTaskItemStatus );
+            button.addEventListener('click', _toggleTaskElementStatus );
 
         })
 
     }
 
 
-    const _toggleTaskItemStatus = (e) => {
+    const _toggleTaskElementStatus = (e) => {
+
+        console.log(e);
 
         const taskIndex = e.target.parentElement.parentElement.getAttribute('data-index');
 
         pubsub.publish('toggleTaskStatus', taskIndex);
+
+        pubsub.publish('updateTask', taskIndex);
 
     }
 
@@ -155,28 +152,39 @@ export const domFunctions = (() => {
 
     }
 
-    const renderTask = (data) => {
+    const renderTask = ( data ) => {
 
         console.log(data);
 
-        const task = _createTaskElement( data.object, data.array.length );
-
-        _tasksList.appendChild( task );
-
-    }
-
-
-    const renderTasksList = (array) => {
-
-        array.forEach( ( object, index ) => {
-
-            const task = _createTaskElement( object, index );
+        if( data.index === undefined ) {
+            const task = _createTaskElement( data.object, data.array.length - 1 );
 
             _tasksList.appendChild( task );
+            console.log('null index');
+        }
 
-        });
+        if( data.index !== undefined ){
+            const task = _createTaskElement( data.object, data.index );
+            
+            // _tasksList.removeChild( _tasksList.childNodes[data.index] );
+            _tasksList.replaceChild(task, _tasksList.children[data.index] );
+            console.log( 'index accepted' );
+        }
 
     }
+
+
+    // const renderTasksList = (array) => {
+
+    //     array.forEach( ( object, index ) => {
+
+    //         const task = _createTaskElement( object, index );
+
+    //         _tasksList.appendChild( task );
+
+    //     });
+
+    // }
 
 
     const setUpTaskFormListener = () =>{
@@ -190,9 +198,9 @@ export const domFunctions = (() => {
     }
 
 
-    const setUpTaskItemListener = () => {
+    const setUpTaskElementListener = () => {
 
-        _setUpTaskItemCompleteListeners();
+        _setUpTaskElementCompleteListeners();
 
     }
 
@@ -222,7 +230,7 @@ export const domFunctions = (() => {
 
     pubsub.subscribe('pageLoad', setUpTaskFormListener);
     pubsub.subscribe('pageLoad', setUpModal);
-    pubsub.subscribe('pageLoad', setUpTaskItemListener);
+    pubsub.subscribe('pageLoad', setUpTaskElementListener);
 
 
     return {
