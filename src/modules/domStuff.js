@@ -113,14 +113,6 @@ export const domFunctions = (() => {
     }
 
 
-    const _addSingleTaskCompleteListeners = (index) => {
-
-        const completeButton = document.querySelector(`.task-item[data-index="${index}"] .complete`);
-
-        completeButton.addEventListener('click', _toggleTaskElementStatus );
-
-    }
-
     const _addTaskCompleteListeners = () => {
 
         const completeButtons = document.querySelectorAll('.task-item .complete');
@@ -130,6 +122,15 @@ export const domFunctions = (() => {
             button.addEventListener('click', _toggleTaskElementStatus );
 
         })
+
+    }
+
+
+    const _addSingleTaskCompleteListeners = (index) => {
+
+        const completeButton = document.querySelector(`.task-item[data-index="${index}"] .complete`);
+
+        completeButton.addEventListener('click', _toggleTaskElementStatus );
 
     }
 
@@ -149,11 +150,27 @@ export const domFunctions = (() => {
 
         deleteButtons.forEach( (button) => {
 
-            button.addEventListener('click', function() {
-                console.log('delete item');
-            } );
+            button.addEventListener('click', _deleteTaskElement );
 
         })
+
+    }
+
+
+    const _addSingleTaskDeleteListeners = (index) => {
+
+        const deleteButton = document.querySelector(`.task-item[data-index="${index}"] .delete`);
+
+        deleteButton.addEventListener('click', _deleteTaskElement );
+
+    }
+
+
+    const _removeSingleTaskDeleteListeners = (index) => {
+
+        const deleteButton = document.querySelector(`.task-item[data-index="${index}"] .delete`);
+
+        deleteButton.removeEventListener('click', _deleteTaskElement );
 
     }
 
@@ -183,10 +200,40 @@ export const domFunctions = (() => {
 
         pubsub.publish('updateTask', taskIndex);
 
-        // addSingleTaskElementListeners( taskIndex );
+    }
+
+
+    const _deleteTaskElement = (e) => {
+
+        console.log(e);
+
+        const taskIndex = e.target.parentElement.parentElement.getAttribute('data-index');
+
+        _removeSingleTaskElementListeners(taskIndex);
+
+        _tasksList.removeChild( _tasksList.children[taskIndex] );
 
     }
 
+    
+    const _addSingleTaskElementListeners = (index) => {
+
+        // console.log(`reset listeners for todo with index: ${index}`);
+
+        _addSingleTaskCompleteListeners(index);
+        _addSingleTaskDeleteListeners(index);
+
+    }
+
+
+    const _removeSingleTaskElementListeners = (index) => {
+
+        // console.log(`remove listeners for todo with index: ${index}`);
+
+        _removeSingleTaskCompleteListeners(index);
+        _removeSingleTaskDeleteListeners(index);
+
+    }
 
 
     // Public variables/functions
@@ -209,17 +256,17 @@ export const domFunctions = (() => {
             const task = _createTaskElement( data.object, data.array.length - 1 );
 
             _tasksList.appendChild( task );
-            addSingleTaskElementListeners( data.array.length - 1 );
+            _addSingleTaskElementListeners( data.array.length - 1 );
             console.log('null index');
         }
 
         if( data.index !== undefined ){
             const task = _createTaskElement( data.object, data.index );
 
-            removeSingleTaskElementListeners( data.index );
+            _removeSingleTaskElementListeners( data.index );
             
             _tasksList.replaceChild(task, _tasksList.children[data.index] );
-            addSingleTaskElementListeners( data.index );
+            _addSingleTaskElementListeners( data.index );
             console.log( 'index accepted' );
         }
 
@@ -239,31 +286,13 @@ export const domFunctions = (() => {
     // }
 
 
-    const setUpTaskFormListener = () =>{
+    const addTaskFormListener = () =>{
 
         const form = document.querySelector('#add-task-modal form');
 
         form.addEventListener('submit', function(e) {
             pubsub.publish('submitTask', e );
         });
-
-    }
-
-
-    const addSingleTaskElementListeners = (index) => {
-
-        // console.log(`reset listeners for todo with index: ${index}`);
-
-        _addSingleTaskCompleteListeners(index);
-
-    }
-
-
-    const removeSingleTaskElementListeners = (index) => {
-
-        // console.log(`reset listeners for todo with index: ${index}`);
-
-        _removeSingleTaskCompleteListeners(index);
 
     }
 
@@ -300,7 +329,7 @@ export const domFunctions = (() => {
 
     pubsub.subscribe('projectAdded', renderProject);
 
-    pubsub.subscribe('pageLoad', setUpTaskFormListener);
+    pubsub.subscribe('pageLoad', addTaskFormListener);
     pubsub.subscribe('pageLoad', setUpModal);
     pubsub.subscribe('pageLoad', addTaskElementsListeners);
 
