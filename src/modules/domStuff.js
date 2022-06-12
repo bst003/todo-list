@@ -113,7 +113,13 @@ export const domFunctions = (() => {
     }
 
 
-    // const _setUpTaskElementCompleteListeners = () => {
+    const _addSingleTaskCompleteListeners = (index) => {
+
+        const completeButton = document.querySelector(`.task-item[data-index="${index}"] .complete`);
+
+        completeButton.addEventListener('click', _toggleTaskElementStatus );
+
+    }
 
     const _addTaskCompleteListeners = () => {
 
@@ -167,6 +173,8 @@ export const domFunctions = (() => {
         pubsub.publish('toggleTaskStatus', taskIndex);
 
         pubsub.publish('updateTask', taskIndex);
+
+        addSingleTaskElementListeners( taskIndex );
 
     }
 
@@ -230,7 +238,16 @@ export const domFunctions = (() => {
     }
 
 
-    const addTaskElementListeners = () => {
+    const addSingleTaskElementListeners = (index) => {
+
+        console.log(`reset listeners for todo with index: ${index}`);
+
+        _addSingleTaskCompleteListeners(index);
+
+    }
+
+
+    const addTaskElementsListeners = () => {
 
         _addTaskCompleteListeners();
         _addTaskDeleteListeners();
@@ -264,7 +281,7 @@ export const domFunctions = (() => {
 
     pubsub.subscribe('pageLoad', setUpTaskFormListener);
     pubsub.subscribe('pageLoad', setUpModal);
-    pubsub.subscribe('pageLoad', addTaskElementListeners);
+    pubsub.subscribe('pageLoad', addTaskElementsListeners);
 
 
     return {
