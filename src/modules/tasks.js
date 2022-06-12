@@ -115,7 +115,17 @@ export const taskFunctions = (() => {
 
     }
 
+
+    const toggleTaskStatus = (index) => {
+
+        tasks[index].toggleStatus();
+
+    }
+
+
     // PubSubs
+
+    pubsub.subscribe('toggleTaskStatus', toggleTaskStatus );
 
     pubsub.subscribe('submitTask', submitNewTask);
 

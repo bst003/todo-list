@@ -18,6 +18,14 @@ export const domFunctions = (() => {
 
     }
 
+
+    const _clickTaskCompleteButton = (e) =>{
+
+        console.log(e);
+
+    }
+
+
     const _createIconButton = ( array ) => {
 
         const buttonClasses = array;
@@ -37,7 +45,7 @@ export const domFunctions = (() => {
     const _createProjectElement = ( object, index ) => {
 
         const project = document.createElement('button');
-        project.setAttribute(`data-index`, index);
+        project.setAttribute(`data-index`, index - 1);
         project.innerText = object.getTitle();
 
         return project;
@@ -48,7 +56,7 @@ export const domFunctions = (() => {
     const _createTaskElement = ( object, index ) => {
 
         const task = document.createElement('div');
-        task.setAttribute(`data-index`, index);
+        task.setAttribute(`data-index`, index - 1);
         task.classList.add(`task-item`, `status-${object.getStatus()}`);
 
         const priority = document.createElement('div');
@@ -112,26 +120,27 @@ export const domFunctions = (() => {
     }
 
 
-    const setUpTaskItemCompleteListeners = () => {
+    const _setUpTaskItemCompleteListeners = () => {
 
         const completeButtons = document.querySelectorAll('.task-item .complete');
 
         completeButtons.forEach( (button) => {
 
-            button.addEventListener('click', function(e)  {
-                console.log(e);
-            });
+            button.addEventListener('click', _toggleTaskItemStatus );
 
         })
 
     }
 
 
-    const setUpTaskItemListener = () => {
+    const _toggleTaskItemStatus = (e) => {
 
-        setUpTaskItemCompleteListeners();
+        const taskIndex = e.target.parentElement.parentElement.getAttribute('data-index');
+
+        pubsub.publish('toggleTaskStatus', taskIndex);
 
     }
+
 
 
     // Public variables/functions
@@ -177,6 +186,13 @@ export const domFunctions = (() => {
         form.addEventListener('submit', function(e) {
             pubsub.publish('submitTask', e );
         });
+
+    }
+
+
+    const setUpTaskItemListener = () => {
+
+        _setUpTaskItemCompleteListeners();
 
     }
 
