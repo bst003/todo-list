@@ -101,6 +101,13 @@ export const taskFunctions = (() => {
     }
 
 
+    const removeTask = (index) => {
+
+        tasks.splice(index, 1);
+
+    }
+
+
     const submitNewTask = (e) => {
 
         e.preventDefault();
@@ -140,6 +147,8 @@ export const taskFunctions = (() => {
 
 
     // PubSubs
+
+    pubsub.subscribe('removeTask', removeTask);
 
     pubsub.subscribe('updateTask', updateTask);
 

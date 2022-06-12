@@ -213,6 +213,8 @@ export const domFunctions = (() => {
 
         _tasksList.removeChild( _tasksList.children[taskIndex] );
 
+        pubsub.publish('removeTask', taskIndex);
+
     }
 
     
