@@ -113,13 +113,45 @@ export const domFunctions = (() => {
     }
 
 
-    const _setUpTaskElementCompleteListeners = () => {
+    // const _setUpTaskElementCompleteListeners = () => {
+
+    const _addTaskCompleteListeners = () => {
 
         const completeButtons = document.querySelectorAll('.task-item .complete');
 
         completeButtons.forEach( (button) => {
 
             button.addEventListener('click', _toggleTaskElementStatus );
+
+        })
+
+    }
+
+
+    const _addTaskDeleteListeners = () => {
+
+        const deleteButtons = document.querySelectorAll('.task-item .delete');
+
+        deleteButtons.forEach( (button) => {
+
+            button.addEventListener('click', function() {
+                console.log('delete item');
+            } );
+
+        })
+
+    }
+
+
+    const _addTaskEditListeners = () => {
+
+        const editButtons = document.querySelectorAll('.task-item .edit');
+
+        editButtons.forEach( (button) => {
+
+            button.addEventListener('click', function() {
+                console.log('edit item');
+            } );
 
         })
 
@@ -198,9 +230,11 @@ export const domFunctions = (() => {
     }
 
 
-    const setUpTaskElementListener = () => {
+    const addTaskElementListeners = () => {
 
-        _setUpTaskElementCompleteListeners();
+        _addTaskCompleteListeners();
+        _addTaskDeleteListeners();
+        _addTaskEditListeners();
 
     }
 
@@ -230,7 +264,7 @@ export const domFunctions = (() => {
 
     pubsub.subscribe('pageLoad', setUpTaskFormListener);
     pubsub.subscribe('pageLoad', setUpModal);
-    pubsub.subscribe('pageLoad', setUpTaskElementListener);
+    pubsub.subscribe('pageLoad', addTaskElementListeners);
 
 
     return {
