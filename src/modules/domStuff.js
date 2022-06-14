@@ -113,79 +113,34 @@ export const domFunctions = (() => {
     }
 
 
-    const _addTaskCompleteListeners = () => {
+    const _addSingleTaskListener = (index, className, func) => {
 
-        const completeButtons = document.querySelectorAll('.task-item .complete');
+        const button = document.querySelector(`.task-item[data-index="${index}"] .${className}`);
 
-        completeButtons.forEach( (button) => {
+        button.addEventListener('click', func );
 
-            button.addEventListener('click', _toggleTaskElementStatus );
+    }
+
+
+
+    const _addAllTaskListeners = (className, func) => {
+
+        const buttons = document.querySelectorAll(`.task-item .${className}`);
+
+        buttons.forEach( (button) => {
+
+            button.addEventListener('click', func );
 
         })
 
     }
 
 
-    const _addSingleTaskCompleteListeners = (index) => {
+    const _removeSingleTaskListener = (index, className, func) => {
 
-        const completeButton = document.querySelector(`.task-item[data-index="${index}"] .complete`);
+        const button = document.querySelector(`.task-item[data-index="${index}"] .${className}`);
 
-        completeButton.addEventListener('click', _toggleTaskElementStatus );
-
-    }
-
-
-    const _removeSingleTaskCompleteListeners = (index) => {
-
-        const completeButton = document.querySelector(`.task-item[data-index="${index}"] .complete`);
-
-        completeButton.removeEventListener('click', _toggleTaskElementStatus );
-
-    }
-
-
-    const _addTaskDeleteListeners = () => {
-
-        const deleteButtons = document.querySelectorAll('.task-item .delete');
-
-        deleteButtons.forEach( (button) => {
-
-            button.addEventListener('click', _deleteTaskElement );
-
-        })
-
-    }
-
-
-    const _addSingleTaskDeleteListeners = (index) => {
-
-        const deleteButton = document.querySelector(`.task-item[data-index="${index}"] .delete`);
-
-        deleteButton.addEventListener('click', _deleteTaskElement );
-
-    }
-
-
-    const _removeSingleTaskDeleteListeners = (index) => {
-
-        const deleteButton = document.querySelector(`.task-item[data-index="${index}"] .delete`);
-
-        deleteButton.removeEventListener('click', _deleteTaskElement );
-
-    }
-
-
-    const _addTaskEditListeners = () => {
-
-        const editButtons = document.querySelectorAll('.task-item .edit');
-
-        editButtons.forEach( (button) => {
-
-            button.addEventListener('click', function() {
-                console.log('edit item');
-            } );
-
-        })
+        button.removeEventListener('click', func );
 
     }
 
@@ -217,13 +172,21 @@ export const domFunctions = (() => {
 
     }
 
+
+    const _editTaskElement = (e) => {
+
+        console.log(e);
+
+        const taskIndex = e.target.parentElement.parentElement.getAttribute('data-index');
+
+    }
+
     
     const _addSingleTaskElementListeners = (index) => {
 
-        // console.log(`reset listeners for todo with index: ${index}`);
-
-        _addSingleTaskCompleteListeners(index);
-        _addSingleTaskDeleteListeners(index);
+        _addSingleTaskListener( index, 'complete', _toggleTaskElementStatus);
+        _addSingleTaskListener( index, 'delete', _deleteTaskElement);
+        _addSingleTaskListener( index, 'edit', _editTaskElement);
 
     }
 
@@ -232,8 +195,9 @@ export const domFunctions = (() => {
 
         // console.log(`remove listeners for todo with index: ${index}`);
 
-        _removeSingleTaskCompleteListeners(index);
-        _removeSingleTaskDeleteListeners(index);
+        _removeSingleTaskListener( index, 'complete', _toggleTaskElementStatus);
+        _removeSingleTaskListener( index, 'delete', _deleteTaskElement);
+        _removeSingleTaskListener( index, 'edit', _editTaskElement);
 
     }
 
@@ -301,9 +265,9 @@ export const domFunctions = (() => {
 
     const addTaskElementsListeners = () => {
 
-        _addTaskCompleteListeners();
-        _addTaskDeleteListeners();
-        _addTaskEditListeners();
+        _addAllTaskListeners('complete', _toggleTaskElementStatus);
+        _addAllTaskListeners('delete', _deleteTaskElement);
+        _addAllTaskListeners('edit', _editTaskElement);
 
     }
 
