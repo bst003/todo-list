@@ -268,6 +268,18 @@ export const domFunctions = (() => {
     }
 
 
+    const _resetTaskFormHeading = () => {
+
+        const formHeading = document.querySelector('#add-task-modal .h4 strong');
+
+        if( formHeading.innerText != 'Add Task' ){
+            _clearContent( formHeading );
+            formHeading.innerText = 'Add Task';
+        }
+
+    }
+
+
     // Public variables/functions
 
     const renderProject = (data) => {
@@ -354,6 +366,11 @@ export const domFunctions = (() => {
 
         showModal.addEventListener('click', function(e) {
             modal.modalObject.open();
+
+            if( showModal === document.querySelector('#show-task-modal') ){
+                _resetTaskFormHeading();
+            }
+
         });
 
         closeModal.addEventListener('click', function(e) {
