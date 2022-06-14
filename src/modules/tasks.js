@@ -52,36 +52,6 @@ export const taskFunctions = (() => {
 
     // Private variables/functions
 
-    const _gatherTaskFormValues = () => {
-
-        const title = document.querySelector('#task-title').value;
-        const description = document.querySelector('#task-description').value;
-        const date = document.querySelector('#task-due-date').value;
-        const priority = document.querySelector('#task-priority').value;
-        const project = document.querySelector('#task-project').value;
-
-        const data ={
-            title,
-            description,
-            date,
-            priority,
-            project
-        };
-
-        return data;
-
-    }
-
-    const _resetTaskFormValues = () => {
-
-        document.querySelector('#task-title').value = '';
-        document.querySelector('#task-description').value = '';
-        document.querySelector('#task-due-date').value = '';
-        document.querySelector('#task-priority').value = '';
-        document.querySelector('#task-project').value = '';
-
-    }
-
 
     // Public variables/functions
 
@@ -108,11 +78,9 @@ export const taskFunctions = (() => {
     }
 
 
-    const submitNewTask = (e) => {
+    const submitNewTask = (dataObject) => {
 
-        e.preventDefault();
-
-        const data = _gatherTaskFormValues();
+        const data = dataObject;
 
         const task = factory( data.title, data.description, data.date, data.priority, data.project );
 
@@ -155,8 +123,6 @@ export const taskFunctions = (() => {
     pubsub.subscribe('toggleTaskStatus', toggleTaskStatus );
 
     pubsub.subscribe('submitTask', submitNewTask);
-
-    pubsub.subscribe('postSubmitTask', _resetTaskFormValues);
 
 
     return {

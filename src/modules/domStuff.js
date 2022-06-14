@@ -19,6 +19,16 @@ export const domFunctions = (() => {
     }
 
 
+    const _clearContent = (parent) => {
+
+        while( parent.firstChild ){
+
+            parent.removeChild( parent.firstChild );
+
+        }
+
+    }
+
     const _createIconButton = ( array ) => {
 
         const buttonClasses = array;
@@ -179,7 +189,16 @@ export const domFunctions = (() => {
 
         console.log(e);
 
+        const taskModalHeader = document.querySelector('#add-task-modal .h4 strong');
+        _clearContent( taskModalHeader );
+        taskModalHeader.innerText = 'Edit Task';
+
         const taskIndex = e.target.parentElement.parentElement.getAttribute('data-index');
+
+        const taskForm = document.querySelector('#add-task-form');
+        taskForm.setAttribute('data-edit-index', taskIndex);
+
+        pubsub.publish('editTask');
 
     }
 
@@ -204,17 +223,9 @@ export const domFunctions = (() => {
 
     const _updateTaskElementIndexes = (index) => {
 
-        console.log(`update index is ${index}`);
-
-        console.log(`list length is ${_tasksList.children.length}`);
-
         for( let i = index; i < _tasksList.children.length; i++ ){
 
             const y = Number(i) + 1;
-
-            console.log(`y is ${y}`);
-
-            console.log(`new index is ${index}`);
 
             const taskElement = document.querySelector(`.task-item[data-index="${y}"]`);
 
@@ -222,6 +233,37 @@ export const domFunctions = (() => {
 
         }
 
+
+    }
+
+
+    const _gatherTaskFormValues = () => {
+
+        const title = document.querySelector('#task-title').value;
+        const description = document.querySelector('#task-description').value;
+        const date = document.querySelector('#task-due-date').value;
+        const priority = document.querySelector('#task-priority').value;
+        const project = document.querySelector('#task-project').value;
+
+        const data = {
+            title,
+            description,
+            date,
+            priority,
+            project
+        };
+
+        return data;
+
+    }
+
+    const _resetTaskFormValues = () => {
+
+        document.querySelector('#task-title').value = '';
+        document.querySelector('#task-description').value = '';
+        document.querySelector('#task-due-date').value = '';
+        document.querySelector('#task-priority').value = '';
+        document.querySelector('#task-project').value = '';
 
     }
 
@@ -281,7 +323,15 @@ export const domFunctions = (() => {
         const form = document.querySelector('#add-task-modal form');
 
         form.addEventListener('submit', function(e) {
-            pubsub.publish('submitTask', e );
+        
+            e.preventDefault();
+
+            const data = _gatherTaskFormValues();
+
+            pubsub.publish('submitTask', data );
+
+            _resetTaskFormValues();
+
         });
 
     }

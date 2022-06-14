@@ -19,11 +19,16 @@ export const generalFunctions = (() => {
             modalObject.close();
         }
 
+        const openModal = () => {
+            modalObject.open();
+        }
+
         return {
             modalObject,
             getOpenElement,
             getCloseElement,
-            closeModal
+            closeModal,
+            openModal
         }
 
     }
@@ -45,6 +50,8 @@ export const generalFunctions = (() => {
 
     // PubSubs
     pubsub.subscribe('postSubmitTask', taskModal.closeModal );
+
+    pubsub.subscribe('editTask', taskModal.openModal );
 
 
     return {
