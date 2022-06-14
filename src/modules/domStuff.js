@@ -168,6 +168,8 @@ export const domFunctions = (() => {
 
         _tasksList.removeChild( _tasksList.children[taskIndex] );
 
+        _updateTaskElementIndexes(taskIndex);
+
         pubsub.publish('removeTask', taskIndex);
 
     }
@@ -193,11 +195,33 @@ export const domFunctions = (() => {
 
     const _removeSingleTaskElementListeners = (index) => {
 
-        // console.log(`remove listeners for todo with index: ${index}`);
-
         _removeSingleTaskListener( index, 'complete', _toggleTaskElementStatus);
         _removeSingleTaskListener( index, 'delete', _deleteTaskElement);
         _removeSingleTaskListener( index, 'edit', _editTaskElement);
+
+    }
+
+
+    const _updateTaskElementIndexes = (index) => {
+
+        console.log(`update index is ${index}`);
+
+        console.log(`list length is ${_tasksList.children.length}`);
+
+        for( let i = index; i < _tasksList.children.length; i++ ){
+
+            const y = Number(i) + 1;
+
+            console.log(`y is ${y}`);
+
+            console.log(`new index is ${index}`);
+
+            const taskElement = document.querySelector(`.task-item[data-index="${y}"]`);
+
+            taskElement.setAttribute('data-index', i);
+
+        }
+
 
     }
 

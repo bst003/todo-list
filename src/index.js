@@ -67,6 +67,9 @@ window.taskFunctions.addTask( testTask );
 const testTask2 = window.taskFunctions.factory('task 2', '', '12/06/1994', 'medium', 'Default');
 window.taskFunctions.addTask( testTask2 );
 
+const testTask3 = window.taskFunctions.factory('task 3', 'this is a test', '11/06/1994', 'low', 'Default');
+window.taskFunctions.addTask( testTask2 );
+
 const testProject = window.projectFunctions.factory('Test Project');
 window.projectFunctions.addProject( testProject );
 
