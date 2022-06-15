@@ -312,6 +312,7 @@ export const domFunctions = (() => {
         }
 
         _resetTaskFormValues();
+        form.removeAttribute('data-edit-index');
 
     }
 
@@ -404,6 +405,10 @@ export const domFunctions = (() => {
 
         showModal.addEventListener('click', function(e) {
             modal.modalObject.open();
+
+            if( document.querySelector('#add-task-form').getAttribute('data-edit-index') ){
+                document.querySelector('#add-task-form').removeAttribute('data-edit-index');
+            }
 
             if( showModal === document.querySelector('#show-task-modal') ){
                 _resetTaskFormHeading();

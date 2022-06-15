@@ -149,6 +149,7 @@ export const taskFunctions = (() => {
         }
 
         pubsub.publish('taskAdded', data );
+        pubsub.publish('postSubmitTask');
 
     }
 
