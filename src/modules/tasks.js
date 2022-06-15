@@ -17,9 +17,17 @@ export const taskFunctions = (() => {
         }
 
         const getDescription  = () => data.description ? data.description : "";
+        const setDescription = (value) => data.title = value;
+
         const getDueDate  = () => data.dueDate ? data.dueDate : 'no date';
+        const setDueDate = (value) => data.dueDate = value;
+
         const getPriority  = () => data.priority ? data.priority : 'low';
+        const setPriority = (value) => data.priority = value;
+
         const getProject  = () => data.project ? data.project : 'Default';
+        const setProject = (value) => data.project = value;
+
         const getStatus = () => data.status;
 
         const toggleStatus = () => {
@@ -32,9 +40,13 @@ export const taskFunctions = (() => {
 
         const baseMethods = {
             getDescription,
+            setDescription,
             getDueDate,
+            setDueDate,
             getPriority,
+            setPriority,
             getProject,
+            setProject,
             getStatus,
             toggleStatus
         }

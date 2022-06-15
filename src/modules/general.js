@@ -44,6 +44,7 @@ export const generalFunctions = (() => {
 
     const titleMethods = (data) => ({
         getTitle : () => data.title ? data.title : "no title property",
+        setTitle : (value) => data.title = value,
     });
 
 
