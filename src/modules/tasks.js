@@ -17,7 +17,7 @@ export const taskFunctions = (() => {
         }
 
         const getDescription  = () => data.description ? data.description : "";
-        const setDescription = (value) => data.title = value;
+        const setDescription = (value) => data.description = value;
 
         const getDueDate  = () => data.dueDate ? data.dueDate : 'no date';
         const setDueDate = (value) => data.dueDate = value;
@@ -128,6 +128,31 @@ export const taskFunctions = (() => {
     }
 
 
+    const updateTaskValues = (editData) => {
+
+        console.log(editData);
+
+        const task = tasks[editData.index];
+
+        const values = editData.object;
+
+        task.setTitle(values.title);
+        task.setDescription(values.description);
+        task.setDueDate(values.date);
+        task.setPriority(values.priority);
+        task.setProject(values.project);
+
+        const data = {
+            object: task,
+            array: tasks,
+            index: editData.index,
+        }
+
+        pubsub.publish('taskAdded', data );
+
+    }
+
+
     const toggleTaskStatus = (index) => {
 
         tasks[index].toggleStatus();
@@ -146,6 +171,8 @@ export const taskFunctions = (() => {
     pubsub.subscribe('toggleTaskStatus', toggleTaskStatus );
 
     pubsub.subscribe('submitTask', submitNewTask);
+
+    pubsub.subscribe('submitEditedTask', updateTaskValues);
 
 
     return {

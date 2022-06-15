@@ -300,8 +300,12 @@ export const domFunctions = (() => {
 
             const index = form.getAttribute('data-edit-index');
 
-            // pubsub.publish('removeTask')
+            const updateData = {
+                object: data,
+                index: index
+            }
 
+            pubsub.publish('submitEditedTask', updateData);
 
         } else {
             pubsub.publish('submitTask', data );
