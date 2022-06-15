@@ -71,6 +71,19 @@ export const taskFunctions = (() => {
     }
 
 
+    const getTaskData = (index) => {
+
+        console.log(index);
+
+        const data = tasks[index];
+
+        console.log(data);
+        
+        pubsub.publish('returnTaskData', data);
+
+    }
+
+
     const removeTask = (index) => {
 
         tasks.splice(index, 1);
@@ -115,6 +128,8 @@ export const taskFunctions = (() => {
 
 
     // PubSubs
+
+    pubsub.subscribe('getTask', getTaskData);
 
     pubsub.subscribe('removeTask', removeTask);
 

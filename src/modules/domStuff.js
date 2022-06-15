@@ -198,6 +198,10 @@ export const domFunctions = (() => {
         const taskForm = document.querySelector('#add-task-form');
         taskForm.setAttribute('data-edit-index', taskIndex);
 
+        pubsub.publish('getTask', taskIndex);
+
+        // _populateTaskFormValues(taskIndex);
+
         pubsub.publish('editTask');
 
     }
@@ -256,6 +260,7 @@ export const domFunctions = (() => {
         return data;
 
     }
+
 
     const _resetTaskFormValues = () => {
 
@@ -358,6 +363,18 @@ export const domFunctions = (() => {
     }
 
 
+    const populateTaskFormValues = (data) => {
+
+        console.log(new Date( data.getDueDate() ));
+        document.querySelector('#task-title').value = data.getTitle();
+        document.querySelector('#task-description').value = data.getDescription();
+        document.querySelector('#task-due-date').valueAsDate = new Date( data.getDueDate() );
+        document.querySelector('#task-priority').value = data.getPriority();
+        document.querySelector('#task-project').value = data.getProject();
+
+    }
+
+
     // Takes a modal object defined using the modal factory
     const setUpModal = ( modal ) =>{
 
@@ -381,6 +398,8 @@ export const domFunctions = (() => {
 
 
     // PubSubs
+
+    pubsub.subscribe('returnTaskData', populateTaskFormValues);
 
     pubsub.subscribe('taskAdded', renderTask);
 
