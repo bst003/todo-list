@@ -202,7 +202,7 @@ export const domFunctions = (() => {
 
         // _populateTaskFormValues(taskIndex);
 
-        pubsub.publish('editTask');
+        pubsub.publish('editTaskOpenModal');
 
     }
 
@@ -285,6 +285,33 @@ export const domFunctions = (() => {
     }
 
 
+    const _submitTaskForm = (e) => {
+
+        e.preventDefault();
+
+        console.log(e);
+
+        const form = e.target;
+
+        const data = _gatherTaskFormValues();
+
+        if( form.getAttribute('data-edit-index') ) {
+            console.log('attribute exists');
+
+            const index = form.getAttribute('data-edit-index');
+
+            // pubsub.publish('removeTask')
+
+
+        } else {
+            pubsub.publish('submitTask', data );
+        }
+
+        _resetTaskFormValues();
+
+    }
+
+
     // Public variables/functions
 
     const renderProject = (data) => {
@@ -339,17 +366,7 @@ export const domFunctions = (() => {
 
         const form = document.querySelector('#add-task-modal form');
 
-        form.addEventListener('submit', function(e) {
-        
-            e.preventDefault();
-
-            const data = _gatherTaskFormValues();
-
-            pubsub.publish('submitTask', data );
-
-            _resetTaskFormValues();
-
-        });
+        form.addEventListener('submit', _submitTaskForm);
 
     }
 
@@ -399,7 +416,7 @@ export const domFunctions = (() => {
 
     // PubSubs
 
-    pubsub.subscribe('returnTaskData', populateTaskFormValues);
+    pubsub.subscribe('editTaskPopulateForm', populateTaskFormValues);
 
     pubsub.subscribe('taskAdded', renderTask);
 

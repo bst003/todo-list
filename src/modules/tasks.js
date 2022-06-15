@@ -73,13 +73,9 @@ export const taskFunctions = (() => {
 
     const getTaskData = (index) => {
 
-        console.log(index);
-
         const data = tasks[index];
-
-        console.log(data);
         
-        pubsub.publish('returnTaskData', data);
+        pubsub.publish('editTaskPopulateForm', data);
 
     }
 
