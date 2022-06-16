@@ -5,6 +5,7 @@ export const domFunctions = (() => {
     
     // Private variables/functions
 
+    const _mainTitle = document.querySelector('#main-title');
     const _tasksList = document.querySelector('#tasks-list');
     const _projectsList = document.querySelector('#projects-list');
     const _projectsSelectValues = document.querySelector('#task-project');
@@ -443,6 +444,7 @@ export const domFunctions = (() => {
 
         closeModal.addEventListener('click', function(e) {
             modal.modalObject.close();
+            _resetTaskFormValues();
         });
 
     }
