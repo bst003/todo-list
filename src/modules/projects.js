@@ -38,6 +38,22 @@ export const projectFunctions = (() => {
     }
 
 
+    const submitNewProject = (dataObject) => {
+
+        const data = dataObject;
+
+        const project = factory( data.title );
+
+        addProject(project);
+
+        pubsub.publish('postSubmitProject');
+
+    }
+
+
+    pubsub.subscribe('submitProject', submitNewProject);
+
+
     return {
         factory,
         projects,

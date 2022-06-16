@@ -256,6 +256,43 @@ export const domFunctions = (() => {
     }
 
 
+    const _gatherProjectFormValues = () => {
+
+        const title = document.querySelector('#project-title').value;
+
+        const data = {
+            title
+        };
+
+        return data;
+
+    }
+
+
+    const _resetProjectFormValues = () => {
+
+        document.querySelector('#project-title').value = '';
+
+    }
+
+
+    const _submitProjectForm = (e) => {
+
+        e.preventDefault();
+
+        console.log(e);
+
+        const form = e.target;
+
+        const data = _gatherProjectFormValues();
+
+        pubsub.publish('submitProject', data );
+
+        _resetProjectFormValues();
+
+    }
+
+
     const _gatherTaskFormValues = () => {
 
         const title = document.querySelector('#task-title').value;
@@ -394,6 +431,15 @@ export const domFunctions = (() => {
     // }
 
 
+    const addProjectFormListener = () =>{
+
+        const form = document.querySelector('#add-project-modal form');
+
+        form.addEventListener('submit', _submitProjectForm);
+
+    }
+
+
     const addTaskFormListener = () =>{
 
         const form = document.querySelector('#add-task-modal form');
@@ -463,6 +509,7 @@ export const domFunctions = (() => {
     pubsub.subscribe('activateProjectModal', setUpModal);
     pubsub.subscribe('activateTaskModal', setUpModal);
 
+    pubsub.subscribe('pageLoad', addProjectFormListener);
     pubsub.subscribe('pageLoad', addTaskFormListener);
     // pubsub.subscribe('pageLoad', setUpModal);
     pubsub.subscribe('pageLoad', addTaskElementsListeners);

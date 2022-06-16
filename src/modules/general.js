@@ -61,6 +61,8 @@ export const generalFunctions = (() => {
 
 
     // PubSubs
+    pubsub.subscribe('postSubmitProject', projectModal.closeModal );
+
     pubsub.subscribe('postSubmitTask', taskModal.closeModal );
 
     pubsub.subscribe('editTaskOpenModal', taskModal.openModal );
