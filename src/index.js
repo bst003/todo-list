@@ -61,17 +61,20 @@ window.taskFunctions = taskFunctions;
 window.projectFunctions = projectFunctions;
 
 
-const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high', 'default');
+const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high', 'Default');
 window.taskFunctions.addTask( testTask );
 
-const testTask2 = window.taskFunctions.factory('task 2', '', '12/06/1994', 'medium', 'default');
+const testTask2 = window.taskFunctions.factory('task 2', '', '12/06/1994', 'medium', 'Default');
 window.taskFunctions.addTask( testTask2 );
 
-const testTask3 = window.taskFunctions.factory('task 3', 'this is a test', '11/06/1994', 'low', 'default');
+const testTask3 = window.taskFunctions.factory('task 3', 'this is a test', '11/06/1994', 'low', 'Default');
 window.taskFunctions.addTask( testTask2 );
 
-const testProject = window.projectFunctions.factory('Test Project');
+const testProject = window.projectFunctions.factory('Default');
 window.projectFunctions.addProject( testProject );
+
+const testProject2 = window.projectFunctions.factory('Fitness');
+window.projectFunctions.addProject( testProject2 );
 
 // generalFunctions.taskModal.open();
 

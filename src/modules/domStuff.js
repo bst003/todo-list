@@ -7,6 +7,7 @@ export const domFunctions = (() => {
 
     const _tasksList = document.querySelector('#tasks-list');
     const _projectsList = document.querySelector('#projects-list');
+    const _projectsSelectValues = document.querySelector('#task-project');
 
     const _appendChildren = ( parent, childArray ) => {
 
@@ -49,6 +50,18 @@ export const domFunctions = (() => {
 
         const project = document.createElement('button');
         project.setAttribute(`data-index`, index);
+        project.innerText = object.getTitle();
+
+        return project;
+
+    }
+
+
+    const _createProjectSelectElement = ( object, index ) => {
+
+        const project = document.createElement('option');
+        project.setAttribute(`data-index`, index);
+        project.setAttribute(`value`, object.getTitle());
         project.innerText = object.getTitle();
 
         return project;
@@ -329,6 +342,18 @@ export const domFunctions = (() => {
 
     }
 
+
+    const renderProjectSelectOption = (data) => {
+
+        console.log(data);
+
+        const projectOption = _createProjectSelectElement( data.object, data.array.length );
+
+        _projectsSelectValues.appendChild( projectOption );
+
+    }
+
+
     const renderTask = ( data ) => {
 
         console.log(data);
@@ -430,6 +455,7 @@ export const domFunctions = (() => {
     pubsub.subscribe('taskAdded', renderTask);
 
     pubsub.subscribe('projectAdded', renderProject);
+    pubsub.subscribe('projectAdded', renderProjectSelectOption);
 
     pubsub.subscribe('pageLoad', addTaskFormListener);
     pubsub.subscribe('pageLoad', setUpModal);
