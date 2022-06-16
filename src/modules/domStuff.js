@@ -1,4 +1,5 @@
 import { pubsub } from "./pubsub";
+import { compareAsc, format } from 'date-fns'
 
 export const domFunctions = (() => {
 
@@ -297,7 +298,7 @@ export const domFunctions = (() => {
 
         const title = document.querySelector('#task-title').value;
         const description = document.querySelector('#task-description').value;
-        const date = document.querySelector('#task-due-date').value;
+        const date = format( new Date( document.querySelector('#task-due-date').value ), 'MM-dd-yyyy' );
         const priority = document.querySelector('#task-priority').value;
         const project = document.querySelector('#task-project').value;
 

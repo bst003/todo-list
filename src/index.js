@@ -2,7 +2,7 @@ import './assets/scss/styles.scss';
 
 import 'animate.css';
 
-import { compareAsc, format } from 'date-fns'
+import { compareAsc, format } from 'date-fns';
 
 
 /*
@@ -61,13 +61,13 @@ window.taskFunctions = taskFunctions;
 window.projectFunctions = projectFunctions;
 
 
-const testTask = window.taskFunctions.factory('title here', 'description here', '02/12/2099', 'high', 'Default');
+const testTask = window.taskFunctions.factory('title here', 'description here', '02-12-2099', 'high', 'Default');
 window.taskFunctions.addTask( testTask );
 
-const testTask2 = window.taskFunctions.factory('task 2', '', '12/06/1994', 'medium', 'Default');
+const testTask2 = window.taskFunctions.factory('task 2', '', '12-06-1994', 'medium', 'Default');
 window.taskFunctions.addTask( testTask2 );
 
-const testTask3 = window.taskFunctions.factory('task 3', 'this is a test', '11/06/1994', 'low', 'Fitness');
+const testTask3 = window.taskFunctions.factory('task 3', 'this is a test', '11-06-1994', 'low', 'Fitness');
 window.taskFunctions.addTask( testTask3 );
 
 const testProject = window.projectFunctions.factory('Default');
