@@ -50,6 +50,7 @@ export const domFunctions = (() => {
     const _createProjectElement = ( object, index ) => {
 
         const project = document.createElement('button');
+        project.setAttribute(`type`, 'button');
         project.setAttribute(`data-index`, index);
         project.innerText = object.getTitle();
 
@@ -337,7 +338,7 @@ export const domFunctions = (() => {
 
         console.log(data);
 
-        const project = _createProjectElement( data.object, data.array.length );
+        const project = _createProjectElement( data.object, data.array.length - 1 );
 
         _projectsList.appendChild( project );
 

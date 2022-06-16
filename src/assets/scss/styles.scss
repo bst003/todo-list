@@ -11,6 +11,7 @@ $lightGray: #ebeaea;
 $brandOne: #f38020;
 $brandTwo: #faae40;
 $brandThree: #404041;
+$brandFour: #F9BC8B;
 
 $green: #00ac46;
 $yellow: #fdc500;
@@ -213,6 +214,44 @@ header{
 
 // Projects List
 ////////////////////////////////////
+
+#projects-list{
+    margin: 40px 0px 0px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+
+    button{
+        padding: 10px;
+        border: initial;
+        background-color: $brandFour;
+        color: $black;
+        font-family: $primaryFont;
+        font-weight: 600;
+        font-size: 18px;
+        border-radius: 24px;
+        cursor: pointer;
+        @extend %transitions;
+
+        &.active{
+            color: $white;
+            background-color: $brandOne;
+
+            &:hover,
+        &:focus{
+            background-color: darken($brandOne, 7%);
+        }
+
+        }
+
+        &:hover,
+        &:focus{
+            background-color: darken($brandFour, 7%);
+        }
+
+    }
+
+}
 
 
 // Tasks List
