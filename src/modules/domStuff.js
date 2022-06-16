@@ -424,7 +424,7 @@ export const domFunctions = (() => {
 
 
     // Takes a modal object defined using the modal factory
-    const setUpModal = ( modal ) =>{
+    const setUpModal = ( modal ) => {
 
         const showModal = document.querySelector( modal.getOpenElement() );
         const closeModal = document.querySelector( modal.getCloseElement() );
@@ -432,13 +432,13 @@ export const domFunctions = (() => {
         showModal.addEventListener('click', function(e) {
             modal.modalObject.open();
 
-            if( document.querySelector('#add-task-form').getAttribute('data-edit-index') ){
-                document.querySelector('#add-task-form').removeAttribute('data-edit-index');
+            const modalElement = document.querySelector(modal.getModalElement());
+
+            if( modalElement.querySelector('form').getAttribute('data-edit-index') ){
+                modalElement.querySelector('form').removeAttribute('data-edit-index');
             }
 
-            if( showModal === document.querySelector('#show-task-modal') ){
-                _resetTaskFormHeading();
-            }
+            _resetTaskFormHeading();
 
         });
 
@@ -459,8 +459,11 @@ export const domFunctions = (() => {
     pubsub.subscribe('projectAdded', renderProject);
     pubsub.subscribe('projectAdded', renderProjectSelectOption);
 
+    pubsub.subscribe('activateProjectModal', setUpModal);
+    pubsub.subscribe('activateTaskModal', setUpModal);
+
     pubsub.subscribe('pageLoad', addTaskFormListener);
-    pubsub.subscribe('pageLoad', setUpModal);
+    // pubsub.subscribe('pageLoad', setUpModal);
     pubsub.subscribe('pageLoad', addTaskElementsListeners);
 
 

@@ -12,6 +12,7 @@ export const generalFunctions = (() => {
             dialogCloseClass: 'animate__fadeOutUp'
         });
 
+        const getModalElement  = () => modalElement;
         const getOpenElement  = () => openModalElement;
         const getCloseElement  = () => closeModalElement;
 
@@ -25,6 +26,7 @@ export const generalFunctions = (() => {
 
         return {
             modalObject,
+            getModalElement,
             getOpenElement,
             getCloseElement,
             closeModal,
@@ -39,7 +41,16 @@ export const generalFunctions = (() => {
 
     // Public variables/functions
 
+    const projectModal = Modal('#add-project-modal', '#show-project-modal', '#add-project-modal .close');
     const taskModal = Modal('#add-task-modal', '#show-task-modal', '#add-task-modal .close');
+
+
+    const activateModals = () => {
+
+        pubsub.publish('activateProjectModal', projectModal);
+        pubsub.publish('activateTaskModal', taskModal);
+
+    }
 
 
     const titleMethods = (data) => ({
@@ -54,8 +65,11 @@ export const generalFunctions = (() => {
 
     pubsub.subscribe('editTaskOpenModal', taskModal.openModal );
 
+    pubsub.subscribe('pageLoad', activateModals );
+
 
     return {
+        projectModal,
         taskModal,
         titleMethods
     }

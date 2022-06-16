@@ -84,7 +84,8 @@ window.projectFunctions.addProject( testProject2 );
 // window.taskFunctions.tasks[0].getDueDate();
 
 
-pubsub.publish('pageLoad', generalFunctions.taskModal );
+// pubsub.publish('pageLoad', generalFunctions.taskModal );
+pubsub.publish('pageLoad');
 
 
 /*
