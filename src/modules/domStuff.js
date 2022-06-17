@@ -419,9 +419,12 @@ export const domFunctions = (() => {
 
     // Retrieving/Pushing Data
 
-    const _triggerTasksListPush = () => {
+    const _triggerTasksListPush = (e) => {
+
+        const target = e.target;
 
         // console.log('push started');
+        _updateActiveProjectButton(target)
 
         pubsub.publish('pushTasks');
 
