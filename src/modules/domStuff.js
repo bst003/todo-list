@@ -193,6 +193,25 @@ export const domFunctions = (() => {
     }
 
 
+    const _addSingleTaskElementListeners = (index) => {
+
+        _addSingleTaskListener( index, 'complete', _toggleTaskElementStatus);
+        _addSingleTaskListener( index, 'delete', _deleteTaskElement);
+        _addSingleTaskListener( index, 'edit', _editTaskElement);
+
+    }
+
+
+    const _removeSingleTaskElementListeners = (index) => {
+
+        _removeSingleTaskListener( index, 'complete', _toggleTaskElementStatus);
+        _removeSingleTaskListener( index, 'delete', _deleteTaskElement);
+        _removeSingleTaskListener( index, 'edit', _editTaskElement);
+
+    }
+
+
+    // Task Related Functions
     const _toggleTaskElementStatus = (e) => {
 
         console.log(e);
@@ -244,23 +263,6 @@ export const domFunctions = (() => {
 
     }
 
-    
-    const _addSingleTaskElementListeners = (index) => {
-
-        _addSingleTaskListener( index, 'complete', _toggleTaskElementStatus);
-        _addSingleTaskListener( index, 'delete', _deleteTaskElement);
-        _addSingleTaskListener( index, 'edit', _editTaskElement);
-
-    }
-
-
-    const _removeSingleTaskElementListeners = (index) => {
-
-        _removeSingleTaskListener( index, 'complete', _toggleTaskElementStatus);
-        _removeSingleTaskListener( index, 'delete', _deleteTaskElement);
-        _removeSingleTaskListener( index, 'edit', _editTaskElement);
-
-    }
 
 
     const _updateTaskElementIndexes = (index) => {
@@ -278,6 +280,8 @@ export const domFunctions = (() => {
 
     }
 
+
+    // Form Related Functions
 
     const _gatherProjectFormValues = () => {
 
@@ -403,6 +407,17 @@ export const domFunctions = (() => {
 
     // Public variables/functions
 
+
+    // Rendering and removing elements
+
+    const removeTaskElements = () => {
+
+        removeTaskElementsListeners();
+        _clearContent(_tasksList);
+
+
+    }
+
     const renderProject = (data) => {
 
         console.log(data);
@@ -452,15 +467,6 @@ export const domFunctions = (() => {
     }
 
 
-    const removeTaskElements = () => {
-
-        removeTaskElementsListeners();
-        _clearContent(_tasksList);
-
-
-    }
-
-
     const renderTasksList = (array) => {
 
         array.forEach( ( object, index ) => {
@@ -472,6 +478,9 @@ export const domFunctions = (() => {
         });
 
     }
+
+
+    // Listener related functions
 
 
     const addProjectFormListener = () =>{
@@ -510,6 +519,8 @@ export const domFunctions = (() => {
     }
 
 
+    // Form related functions
+
     const populateTaskFormValues = (data) => {
 
         console.log(new Date( data.getDueDate() ));
@@ -521,6 +532,8 @@ export const domFunctions = (() => {
 
     }
 
+
+    // Modal related functions
 
     // Takes a modal object defined using the modal factory
     const setUpModal = ( modal ) => {
