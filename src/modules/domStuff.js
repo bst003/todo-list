@@ -11,6 +11,9 @@ export const domFunctions = (() => {
     const _projectsList = document.querySelector('#projects-list');
     const _projectsSelectValues = document.querySelector('#task-project');
 
+
+    // Appending and Clearing Content
+
     const _appendChildren = ( parent, childArray ) => {
 
         childArray.forEach( child => {
@@ -31,6 +34,9 @@ export const domFunctions = (() => {
         }
 
     }
+
+
+    // Creating Elements
 
     const _createIconButton = ( array ) => {
 
@@ -139,6 +145,8 @@ export const domFunctions = (() => {
 
     }
 
+
+    // Add or remove listeners
 
     const _addSingleTaskListener = (index, className, func) => {
 
