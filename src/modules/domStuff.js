@@ -79,7 +79,7 @@ export const domFunctions = (() => {
     }
 
 
-    const _createTaskElement = ( object, index ) => {
+    const _createTaskElement = ( object, index, style = 'standard' ) => {
 
         const task = document.createElement('div');
         task.setAttribute(`data-index`, index );
@@ -102,16 +102,20 @@ export const domFunctions = (() => {
         date.innerText = object.getDueDate();
 
 
-        const controls = document.createElement('div');
-        controls.classList.add('controls');
+        if( style !== 'reduced' ){
+            const controls = document.createElement('div');
+            controls.classList.add('controls');
 
-        const buttonComplete = _createIconButton(['complete']);
-        const buttonEdit = _createIconButton(['edit']);
-        const buttonDelete = _createIconButton(['delete', 'reverse']);
+            const buttonComplete = _createIconButton(['complete']);
+            const buttonEdit = _createIconButton(['edit']);
+            const buttonDelete = _createIconButton(['delete', 'reverse']);
 
-        _appendChildren( controls, [buttonComplete, buttonEdit, buttonDelete] );
+            _appendChildren( controls, [buttonComplete, buttonEdit, buttonDelete] );
 
-        _appendChildren( task, [priority, main, project, date, controls] );
+            _appendChildren( task, [priority, main, project, date, controls] );
+        } else {
+            _appendChildren( task, [priority, main, project, date] );
+        }
 
         return task;
 
@@ -471,7 +475,7 @@ export const domFunctions = (() => {
 
         array.forEach( ( object, index ) => {
 
-            const task = _createTaskElement( object, index );
+            const task = _createTaskElement( object, index, 'reduced' );
 
             _tasksList.appendChild( task );
 
