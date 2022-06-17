@@ -215,6 +215,23 @@ export const domFunctions = (() => {
     }
 
 
+    // Project Related Functions
+
+    const _updateActiveProjectButton = (target) => {
+
+        const projectButtons = document.querySelectorAll('#projects-list button');
+
+        projectButtons.forEach( (button) => {
+
+            button.classList.remove('active');
+
+        });
+
+        target.classList.add('active');
+
+    }
+
+
     // Task Related Functions
     const _toggleTaskElementStatus = (e) => {
 
@@ -368,15 +385,6 @@ export const domFunctions = (() => {
     }
 
 
-    const _pushProjectFilterValue = (e) => {
-
-        const projectValue = e.target.getAttribute('data-value');
-
-        pubsub.publish('filterTasks', projectValue);
-
-    }
-
-
     const _submitTaskForm = (e) => {
 
         e.preventDefault();
@@ -405,6 +413,30 @@ export const domFunctions = (() => {
 
         _resetTaskFormValues();
         form.removeAttribute('data-edit-index');
+
+    }
+
+
+    // Retrieving/Pushing Data
+
+    const _triggerTasksListPush = () => {
+
+        // console.log('push started');
+
+        pubsub.publish('pushTasks');
+
+    }
+
+
+    const _pushProjectFilterValue = (e) => {
+
+        const project = e.target;
+
+        const projectValue = project.getAttribute('data-value');
+
+        _updateActiveProjectButton(project);
+
+        pubsub.publish('filterTasks', projectValue);
 
     }
 
@@ -475,6 +507,19 @@ export const domFunctions = (() => {
 
         array.forEach( ( object, index ) => {
 
+            const task = _createTaskElement( object, index );
+
+            _tasksList.appendChild( task );
+
+        });
+
+    }
+
+
+    const renderTasksListReduced = (array) => {
+
+        array.forEach( ( object, index ) => {
+
             const task = _createTaskElement( object, index, 'reduced' );
 
             _tasksList.appendChild( task );
@@ -496,6 +541,15 @@ export const domFunctions = (() => {
     }
 
 
+    const addShowAllTasksListener = () => {
+
+        const button = document.querySelector('#show-all-tasks');
+
+        button.addEventListener('click', _triggerTasksListPush);
+
+    }
+
+
     const addTaskFormListener = () =>{
 
         const form = document.querySelector('#add-task-modal form');
@@ -505,13 +559,13 @@ export const domFunctions = (() => {
     }
 
 
-    const addTaskElementsListeners = () => {
+    // const addTaskElementsListeners = () => {
 
-        _addAllTaskListeners('complete', _toggleTaskElementStatus);
-        _addAllTaskListeners('delete', _deleteTaskElement);
-        _addAllTaskListeners('edit', _editTaskElement);
+    //     _addAllTaskListeners('complete', _toggleTaskElementStatus);
+    //     _addAllTaskListeners('delete', _deleteTaskElement);
+    //     _addAllTaskListeners('edit', _editTaskElement);
 
-    }
+    // }
 
 
     const removeTaskElementsListeners = () => {
@@ -578,13 +632,17 @@ export const domFunctions = (() => {
     pubsub.subscribe('activateProjectModal', setUpModal);
     pubsub.subscribe('activateTaskModal', setUpModal);
 
-    pubsub.subscribe('renderFilteredTasks', removeTaskElements);
-    pubsub.subscribe('renderFilteredTasks', renderTasksList);
+    pubsub.subscribe('renderAllTasks', removeTaskElements);
+    pubsub.subscribe('renderAllTasks', renderTasksList);
 
+    pubsub.subscribe('renderFilteredTasks', removeTaskElements);
+    pubsub.subscribe('renderFilteredTasks', renderTasksListReduced);
+
+    pubsub.subscribe('pageLoad', addShowAllTasksListener);
     pubsub.subscribe('pageLoad', addProjectFormListener);
     pubsub.subscribe('pageLoad', addTaskFormListener);
     // pubsub.subscribe('pageLoad', setUpModal);
-    pubsub.subscribe('pageLoad', addTaskElementsListeners);
+    // pubsub.subscribe('pageLoad', addTaskElementsListeners);
 
 
     return {

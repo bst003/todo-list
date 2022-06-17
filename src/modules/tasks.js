@@ -105,6 +105,15 @@ export const taskFunctions = (() => {
     }
 
 
+    const pushTasksList = () => {
+
+        // console.log('this worked');
+
+        pubsub.publish('renderAllTasks', tasks);
+
+    }
+
+
     const removeTask = (index) => {
 
         tasks.splice(index, 1);
@@ -180,15 +189,17 @@ export const taskFunctions = (() => {
 
     pubsub.subscribe('getTask', getTaskData);
 
+    pubsub.subscribe('pushTasks', pushTasksList);
+
     pubsub.subscribe('removeTask', removeTask);
-
-    pubsub.subscribe('updateTask', updateTask);
-
-    pubsub.subscribe('toggleTaskStatus', toggleTaskStatus );
 
     pubsub.subscribe('submitTask', submitNewTask);
 
     pubsub.subscribe('submitEditedTask', updateTaskValues);
+
+    pubsub.subscribe('toggleTaskStatus', toggleTaskStatus );
+
+    pubsub.subscribe('updateTask', updateTask);
 
 
     return {
