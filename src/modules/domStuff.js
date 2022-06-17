@@ -53,6 +53,7 @@ export const domFunctions = (() => {
         const project = document.createElement('button');
         project.setAttribute(`type`, 'button');
         project.setAttribute(`data-index`, index);
+        project.setAttribute(`data-value`, object.getTitle());
         project.innerText = object.getTitle();
 
         return project;
@@ -167,6 +168,19 @@ export const domFunctions = (() => {
         const button = document.querySelector(`.task-item[data-index="${index}"] .${className}`);
 
         button.removeEventListener('click', func );
+
+    }
+
+
+    const _removeAllTaskListeners = (className, func) => {
+
+        const buttons = document.querySelectorAll(`.task-item .${className}`);
+
+        buttons.forEach( (button) => {
+
+            button.removeEventListener('click', func );
+
+        })
 
     }
 
@@ -338,6 +352,15 @@ export const domFunctions = (() => {
     }
 
 
+    const _pushProjectFilterValue = (e) => {
+
+        const projectValue = e.target.getAttribute('data-value');
+
+        pubsub.publish('filterTasks', projectValue);
+
+    }
+
+
     const _submitTaskForm = (e) => {
 
         e.preventDefault();
@@ -377,6 +400,8 @@ export const domFunctions = (() => {
         console.log(data);
 
         const project = _createProjectElement( data.object, data.array.length - 1 );
+
+        project.addEventListener('click', _pushProjectFilterValue );
 
         _projectsList.appendChild( project );
 
@@ -419,17 +444,26 @@ export const domFunctions = (() => {
     }
 
 
-    // const renderTasksList = (array) => {
+    const removeTaskElements = () => {
 
-    //     array.forEach( ( object, index ) => {
+        removeTaskElementsListeners();
+        _clearContent(_tasksList);
 
-    //         const task = _createTaskElement( object, index );
 
-    //         _tasksList.appendChild( task );
+    }
 
-    //     });
 
-    // }
+    const renderTasksList = (array) => {
+
+        array.forEach( ( object, index ) => {
+
+            const task = _createTaskElement( object, index );
+
+            _tasksList.appendChild( task );
+
+        });
+
+    }
 
 
     const addProjectFormListener = () =>{
@@ -455,6 +489,15 @@ export const domFunctions = (() => {
         _addAllTaskListeners('complete', _toggleTaskElementStatus);
         _addAllTaskListeners('delete', _deleteTaskElement);
         _addAllTaskListeners('edit', _editTaskElement);
+
+    }
+
+
+    const removeTaskElementsListeners = () => {
+
+        _removeAllTaskListeners('complete', _toggleTaskElementStatus);
+        _removeAllTaskListeners('delete', _deleteTaskElement);
+        _removeAllTaskListeners('edit', _editTaskElement);
 
     }
 
@@ -509,6 +552,9 @@ export const domFunctions = (() => {
 
     pubsub.subscribe('activateProjectModal', setUpModal);
     pubsub.subscribe('activateTaskModal', setUpModal);
+
+    pubsub.subscribe('renderFilteredTasks', removeTaskElements);
+    pubsub.subscribe('renderFilteredTasks', renderTasksList);
 
     pubsub.subscribe('pageLoad', addProjectFormListener);
     pubsub.subscribe('pageLoad', addTaskFormListener);

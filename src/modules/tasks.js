@@ -83,6 +83,19 @@ export const taskFunctions = (() => {
     }
 
 
+    const filterTasksList = (value) => {
+
+        console.log(`value is ${value}`);
+
+        const newTasks = tasks.filter( task => task.getProject() === value );
+
+        console.log(newTasks);
+
+        pubsub.publish('renderFilteredTasks', newTasks );
+
+    }
+
+
     const getTaskData = (index) => {
 
         const data = tasks[index];
@@ -162,6 +175,8 @@ export const taskFunctions = (() => {
 
 
     // PubSubs
+
+    pubsub.subscribe('filterTasks', filterTasksList);
 
     pubsub.subscribe('getTask', getTaskData);
 
