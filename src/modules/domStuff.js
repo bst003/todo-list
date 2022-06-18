@@ -254,6 +254,8 @@ export const domFunctions = (() => {
 
         _deleteProjectElement(projectIndex);
 
+        _deleteProjectSelectOption(projectIndex);
+
         showAll.click();
 
     }
@@ -271,6 +273,14 @@ export const domFunctions = (() => {
 
 
     const _deleteProjectSelectOption = (index) => {
+
+        const projectSelect = document.querySelector('#task-project');
+
+        // const projectSelectElement = projectSelect.querySelector(`option[data-index="${index}"]`);
+
+        // projectElement.removeEventListener('click', _pushProjectFilterValue);
+
+        projectSelect.removeChild( projectSelect.children[index] );
 
     }
 
