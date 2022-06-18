@@ -252,7 +252,25 @@ export const domFunctions = (() => {
 
         button.removeEventListener('click', _deleteProject );
 
+        _deleteProjectElement(projectIndex);
+
         showAll.click();
+
+    }
+
+
+    const _deleteProjectElement = (index) => {
+
+        const projectElement = document.querySelector(`#projects-list button[data-index="${index}"]`);
+
+        projectElement.removeEventListener('click', _pushProjectFilterValue);
+
+        _projectsList.removeChild( _projectsList.children[Number(index) + 1] );
+
+    }
+
+
+    const _deleteProjectSelectOption = (index) => {
 
     }
 
