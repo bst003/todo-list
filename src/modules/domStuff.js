@@ -544,6 +544,10 @@ export const domFunctions = (() => {
 
             _tasksList.appendChild( task );
 
+            addTaskElementsListeners();
+
+            console.log('this is a test');
+
         });
 
     }
@@ -592,13 +596,13 @@ export const domFunctions = (() => {
     }
 
 
-    // const addTaskElementsListeners = () => {
+    const addTaskElementsListeners = () => {
 
-    //     _addAllTaskListeners('complete', _toggleTaskElementStatus);
-    //     _addAllTaskListeners('delete', _deleteTaskElement);
-    //     _addAllTaskListeners('edit', _editTaskElement);
+        _addAllTaskListeners('complete', _toggleTaskElementStatus);
+        _addAllTaskListeners('delete', _deleteTaskElement);
+        _addAllTaskListeners('edit', _editTaskElement);
 
-    // }
+    }
 
 
     const removeTaskElementsListeners = () => {
