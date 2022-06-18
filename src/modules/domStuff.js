@@ -55,6 +55,26 @@ export const domFunctions = (() => {
     }
 
 
+    const _createNoTaskMessage = () => {
+
+        const message = document.createElement('div');
+        message.setAttribute('class', 'no-tasks');
+
+        const para = document.createElement('p');
+        para.innerText = 'There are currently no tasks in this project. Would you like to delete this project?';
+
+        const button = document.createElement('button');
+        button.classList.add('btn', 'delete-project');
+        button.innerText = 'Delete Project';
+
+        message.appendChild(para);
+        message.appendChild(button);
+
+        return message;
+
+    }
+
+
     const _createProjectElement = ( object, index ) => {
 
         const project = document.createElement('button');
@@ -465,6 +485,25 @@ export const domFunctions = (() => {
 
     }
 
+
+    const renderFilteredTasksContent = (array) => {
+
+        if( array.length === 0 ){
+
+            console.log('no tasks in this project');
+
+            const message = _createNoTaskMessage();
+
+            _tasksList.appendChild(message);
+
+            return;
+        }
+
+        renderTasksListReduced(array);
+
+    }
+
+
     const renderProject = (data) => {
 
         console.log(data);
@@ -676,7 +715,8 @@ export const domFunctions = (() => {
     pubsub.subscribe('renderAllTasks', renderTasksList);
 
     pubsub.subscribe('renderFilteredTasks', removeTaskElements);
-    pubsub.subscribe('renderFilteredTasks', renderTasksListReduced);
+    // pubsub.subscribe('renderFilteredTasks', renderTasksListReduced);
+    pubsub.subscribe('renderFilteredTasks', renderFilteredTasksContent);
 
     pubsub.subscribe('pageLoad', addShowAllTasksListener);
     pubsub.subscribe('pageLoad', addProjectFormListener);
