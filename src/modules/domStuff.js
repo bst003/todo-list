@@ -426,7 +426,8 @@ export const domFunctions = (() => {
 
         const target = e.target;
 
-        // console.log('push started');
+        _mainTitle.innerText = `All Tasks`;
+
         _updateActiveProjectButton(target)
 
         pubsub.publish('pushTasks');
@@ -441,6 +442,8 @@ export const domFunctions = (() => {
         const projectValue = project.getAttribute('data-value');
 
         _sortValue = projectValue;
+
+        _mainTitle.innerText = `${projectValue} Tasks`;
 
         _updateActiveProjectButton(project);
 
