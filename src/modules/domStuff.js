@@ -10,6 +10,7 @@ export const domFunctions = (() => {
     const _tasksList = document.querySelector('#tasks-list');
     const _projectsList = document.querySelector('#projects-list');
     const _projectsSelectValues = document.querySelector('#task-project');
+    let _sortValue = '';
 
 
     // Appending and Clearing Content
@@ -421,6 +422,8 @@ export const domFunctions = (() => {
 
     const _triggerTasksListPush = (e) => {
 
+        _sortValue = '';
+
         const target = e.target;
 
         // console.log('push started');
@@ -436,6 +439,8 @@ export const domFunctions = (() => {
         const project = e.target;
 
         const projectValue = project.getAttribute('data-value');
+
+        _sortValue = projectValue;
 
         _updateActiveProjectButton(project);
 
@@ -485,13 +490,36 @@ export const domFunctions = (() => {
 
         console.log(data);
 
+
+        if( _sortValue !== '' && data.object.getProject() === _sortValue ) {
+
+            const task = _createTaskElement( data.object, data.array.length - 1, 'reduced' );
+
+            _tasksList.appendChild( task );
+            console.log('add task without buttons');
+
+            return;
+
+        }
+
+
+        if( _sortValue !== '' && data.object.getProject() !== _sortValue ) {
+
+            return;
+
+        }
+
+
         if( data.index === undefined ) {
             const task = _createTaskElement( data.object, data.array.length - 1 );
 
             _tasksList.appendChild( task );
             _addSingleTaskElementListeners( data.array.length - 1 );
             console.log('null index');
+
+            return;
         }
+
 
         if( data.index !== undefined ){
             const task = _createTaskElement( data.object, data.index );
@@ -501,6 +529,8 @@ export const domFunctions = (() => {
             _tasksList.replaceChild(task, _tasksList.children[data.index] );
             _addSingleTaskElementListeners( data.index );
             console.log( 'index accepted' );
+
+            return;
         }
 
     }
