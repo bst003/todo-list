@@ -38,6 +38,13 @@ export const projectFunctions = (() => {
     }
 
 
+    const removeProject = (index) => {
+
+        projects.splice(index, 1);
+
+    }
+
+
     const submitNewProject = (dataObject) => {
 
         const data = dataObject;
@@ -49,6 +56,9 @@ export const projectFunctions = (() => {
         pubsub.publish('postSubmitProject');
 
     }
+
+
+    pubsub.subscribe('removeProjectObject', removeProject);
 
 
     pubsub.subscribe('submitProject', submitNewProject);

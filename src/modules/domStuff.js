@@ -68,6 +68,8 @@ export const domFunctions = (() => {
         button.setAttribute('data-project-index', index);
         button.innerText = 'Delete Project';
 
+        button.addEventListener('click', _deleteProject );
+
         message.appendChild(para);
         message.appendChild(button);
 
@@ -238,6 +240,22 @@ export const domFunctions = (() => {
 
 
     // Project Related Functions
+
+
+    const _deleteProject = (e) =>{
+
+        const button = e.target;
+        const projectIndex = button.getAttribute('data-project-index');
+        const showAll = document.querySelector('#show-all-tasks');
+
+        pubsub.publish('removeProjectObject', projectIndex );
+
+        button.removeEventListener('click', _deleteProject );
+
+        showAll.click();
+
+    }
+
 
     const _updateActiveProjectButton = (target) => {
 
