@@ -83,15 +83,20 @@ export const taskFunctions = (() => {
     }
 
 
-    const filterTasksList = (value) => {
+    const filterTasksList = (data) => {
 
-        console.log(`value is ${value}`);
+        console.log(`value is ${data.value}`);
 
-        const newTasks = tasks.filter( task => task.getProject() === value );
+        const newTasks = tasks.filter( task => task.getProject() === data.value );
+
+        const filteredTaskData = {
+            projectIndex: data.index,
+            tasks: newTasks
+        }
 
         console.log(newTasks);
 
-        pubsub.publish('renderFilteredTasks', newTasks );
+        pubsub.publish('renderFilteredTasks', filteredTaskData );
 
     }
 

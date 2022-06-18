@@ -55,7 +55,7 @@ export const domFunctions = (() => {
     }
 
 
-    const _createNoTaskMessage = () => {
+    const _createNoTaskMessage = (index) => {
 
         const message = document.createElement('div');
         message.setAttribute('class', 'no-tasks');
@@ -65,6 +65,7 @@ export const domFunctions = (() => {
 
         const button = document.createElement('button');
         button.classList.add('btn', 'delete-project');
+        button.setAttribute('data-project-index', index);
         button.innerText = 'Delete Project';
 
         message.appendChild(para);
@@ -459,7 +460,13 @@ export const domFunctions = (() => {
 
         const project = e.target;
 
+        const projectIndex = project.getAttribute('data-index');
         const projectValue = project.getAttribute('data-value');
+
+        const data = {
+            index: projectIndex,
+            value: projectValue
+        }
 
         _sortValue = projectValue;
 
@@ -467,7 +474,7 @@ export const domFunctions = (() => {
 
         _updateActiveProjectButton(project);
 
-        pubsub.publish('filterTasks', projectValue);
+        pubsub.publish('filterTasks', data);
 
     }
 
@@ -486,20 +493,20 @@ export const domFunctions = (() => {
     }
 
 
-    const renderFilteredTasksContent = (array) => {
+    const renderFilteredTasksContent = (object) => {
 
-        if( array.length === 0 ){
+        if( object.tasks.length === 0 ){
 
             console.log('no tasks in this project');
 
-            const message = _createNoTaskMessage();
+            const message = _createNoTaskMessage(object.projectIndex);
 
             _tasksList.appendChild(message);
 
             return;
         }
 
-        renderTasksListReduced(array);
+        renderTasksListReduced(object.tasks);
 
     }
 
