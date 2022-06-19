@@ -21,6 +21,8 @@ export const projectFunctions = (() => {
     
     // Private variables/functions
 
+    let _storageAvail = false;
+
 
     // Public variables/functions
     const projects = [];
@@ -57,9 +59,18 @@ export const projectFunctions = (() => {
 
     }
 
+    const updateProjectStorageAvail = (bool) => {
+
+        _storageAvail = bool;
+
+    }
+
+
+    // PubSubs
+
+    pubsub.subscribe('checkStorage', updateProjectStorageAvail);
 
     pubsub.subscribe('removeProjectObject', removeProject);
-
 
     pubsub.subscribe('submitProject', submitNewProject);
 

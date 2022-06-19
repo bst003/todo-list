@@ -11,6 +11,7 @@ export const domFunctions = (() => {
     const _projectsList = document.querySelector('#projects-list');
     const _projectsSelectValues = document.querySelector('#task-project');
     let _sortValue = '';
+    // let _storageCheck = false;
 
 
     // Appending and Clearing Content
@@ -559,7 +560,7 @@ export const domFunctions = (() => {
 
     const renderProject = (data) => {
 
-        console.log(data);
+        // console.log(data);
 
         const project = _createProjectElement( data.object, data.array.length - 1 );
 
@@ -572,7 +573,7 @@ export const domFunctions = (() => {
 
     const renderProjectSelectOption = (data) => {
 
-        console.log(data);
+        // console.log(data);
 
         const projectOption = _createProjectSelectElement( data.object, data.array.length );
 

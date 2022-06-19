@@ -5,7 +5,7 @@ export const taskFunctions = (() => {
 
     // Factories
 
-    const factory = ( title, description, dueDate, priority, project) => {
+    const factory = ( title, description, dueDate, priority, project, status = 'incomplete') => {
 
         const data = {
             "title": title,
@@ -13,7 +13,7 @@ export const taskFunctions = (() => {
             "dueDate": dueDate,
             "priority": priority,
             "project": project,
-            "status": 'incomplete'
+            "status": status
         }
 
         const getDescription  = () => data.description ? data.description : "";
@@ -64,6 +64,45 @@ export const taskFunctions = (() => {
 
     // Private variables/functions
 
+    let _storageAvail = false;
+
+
+    const _convertTasksListForStorage = (array) => {
+
+        const newTasksArray = [];
+
+        for( let i = 0; i < array.length; i++){
+
+            console.log( array[i].getTitle() );
+
+            const object = {
+                "title": array[i].getTitle(),
+                "description": array[i].getDescription(),
+                "dueDate": array[i].getDueDate(),
+                "priority": array[i].getPriority(),
+                "project": array[i].getProject(),
+                "status": array[i].getStatus(),
+            }
+
+            newTasksArray.push(object);
+
+        }
+
+        return newTasksArray;
+
+    }
+
+
+    const _storeTasksInJSON = () => {
+
+        const storageTasks = _convertTasksListForStorage(tasks);
+
+        const jsonTasks = JSON.stringify(storageTasks);
+        
+        localStorage.setItem('tasksList', jsonTasks);
+
+    }
+
 
     // Public variables/functions
 
@@ -80,6 +119,15 @@ export const taskFunctions = (() => {
         }
 
         pubsub.publish('taskAdded', data );
+
+        // If local storage is available then set the tasks to the local storage
+        // but only after converting the tasks array into an array of the values
+        if( _storageAvail ){
+
+            _storeTasksInJSON();
+
+        }
+
     }
 
 
@@ -110,6 +158,39 @@ export const taskFunctions = (() => {
     }
 
 
+    const populateTasksFromStorage = () => {
+
+        if( _storageAvail ) {
+
+            if( localStorage.getItem("tasksList") ) {
+                const tasksString = localStorage.getItem("tasksList");
+
+                // convert string to valid object
+                const parsedTasks = JSON.parse(tasksString);
+
+                for( let i = 0; i < parsedTasks.length; i++ ){
+
+                    const task = factory( 
+                        parsedTasks[i].title, 
+                        parsedTasks[i].description,
+                        parsedTasks[i].dueDate,
+                        parsedTasks[i].priority,
+                        parsedTasks[i].project,
+                        parsedTasks[i].status,
+                    )
+
+                    addTask(task);
+
+                }
+
+                // console.log(parsedTasks);
+            }
+
+        }
+
+    }
+
+
     const pushTasksList = () => {
 
         // console.log('this worked');
@@ -122,6 +203,14 @@ export const taskFunctions = (() => {
     const removeTask = (index) => {
 
         tasks.splice(index, 1);
+
+        // If local storage is available then set the tasks to the local storage
+        // but only after converting the tasks array into an array of the values
+        if( _storageAvail ){
+
+            _storeTasksInJSON();
+
+        }
 
     }
 
@@ -139,6 +228,13 @@ export const taskFunctions = (() => {
     }
 
 
+    const updateTaskStorageAvail = (bool) => {
+
+        _storageAvail = bool;
+
+    }
+
+
     const updateTask = (index) => {
 
         console.log(`index is ${index}`);
@@ -152,6 +248,15 @@ export const taskFunctions = (() => {
         }
 
         pubsub.publish('taskAdded', data );
+
+        // If local storage is available then set the tasks to the local storage
+        // but only after converting the tasks array into an array of the values
+        if( _storageAvail ){
+
+            _storeTasksInJSON();
+
+        }
+
     }
 
 
@@ -190,6 +295,8 @@ export const taskFunctions = (() => {
 
     // PubSubs
 
+    pubsub.subscribe('checkStorage', updateTaskStorageAvail);
+
     pubsub.subscribe('filterTasks', filterTasksList);
 
     pubsub.subscribe('getTask', getTaskData);
@@ -205,6 +312,8 @@ export const taskFunctions = (() => {
     pubsub.subscribe('toggleTaskStatus', toggleTaskStatus );
 
     pubsub.subscribe('updateTask', updateTask);
+
+    pubsub.subscribe('pageLoad', populateTasksFromStorage);
 
 
     return {

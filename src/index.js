@@ -55,17 +55,19 @@ import { taskFunctions } from "./modules/tasks";
 import { projectFunctions } from "./modules/projects";
 
 
+pubsub.publish('prePageLoad');
+pubsub.publish('pageLoad');
 
 
 window.taskFunctions = taskFunctions;
 window.projectFunctions = projectFunctions;
 
 
-const testTask = window.taskFunctions.factory('title here', 'description here', '02-12-2099', 'high', 'Default');
-window.taskFunctions.addTask( testTask );
+// const testTask = window.taskFunctions.factory('title here', 'description here', '02-12-2099', 'high', 'Default');
+// window.taskFunctions.addTask( testTask );
 
-const testTask2 = window.taskFunctions.factory('task 2', '', '12-06-1994', 'medium', 'Default');
-window.taskFunctions.addTask( testTask2 );
+// const testTask2 = window.taskFunctions.factory('task 2', '', '12-06-1994', 'medium', 'Default');
+// window.taskFunctions.addTask( testTask2 );
 
 // const testTask3 = window.taskFunctions.factory('task 3', 'this is a test', '11-06-1994', 'low', 'Fitness');
 // window.taskFunctions.addTask( testTask3 );
@@ -87,7 +89,7 @@ window.projectFunctions.addProject( testProject2 );
 
 
 // pubsub.publish('pageLoad', generalFunctions.taskModal );
-pubsub.publish('pageLoad');
+
 
 
 /*
