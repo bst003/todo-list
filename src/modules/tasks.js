@@ -25,7 +25,7 @@ export const taskFunctions = (() => {
         const getPriority  = () => data.priority ? data.priority : 'low';
         const setPriority = (value) => data.priority = value;
 
-        const getProject  = () => data.project ? data.project : 'Default';
+        const getProject  = () => data.project ? data.project : '';
         const setProject = (value) => data.project = value;
 
         const getStatus = () => data.status;
