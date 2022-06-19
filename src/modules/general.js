@@ -59,8 +59,6 @@ export const generalFunctions = (() => {
 
         if( storageAvailable('localStorage') ){
 
-            console.log('local storage available');
-
             storage = true
 
         } 

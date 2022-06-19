@@ -73,8 +73,6 @@ export const taskFunctions = (() => {
 
         for( let i = 0; i < array.length; i++){
 
-            console.log( array[i].getTitle() );
-
             const object = {
                 "title": array[i].getTitle(),
                 "description": array[i].getDescription(),
@@ -133,7 +131,7 @@ export const taskFunctions = (() => {
 
     const filterTasksList = (data) => {
 
-        console.log(`value is ${data.value}`);
+        // console.log(`value is ${data.value}`);
 
         const newTasks = tasks.filter( task => task.getProject() === data.value );
 
@@ -142,7 +140,7 @@ export const taskFunctions = (() => {
             tasks: newTasks
         }
 
-        console.log(newTasks);
+        // console.log(newTasks);
 
         pubsub.publish('renderFilteredTasks', filteredTaskData );
 
@@ -183,7 +181,6 @@ export const taskFunctions = (() => {
 
                 }
 
-                // console.log(parsedTasks);
             }
 
         }
@@ -192,8 +189,6 @@ export const taskFunctions = (() => {
 
 
     const pushTasksList = () => {
-
-        // console.log('this worked');
 
         pubsub.publish('renderAllTasks', tasks);
 
@@ -204,8 +199,6 @@ export const taskFunctions = (() => {
 
         tasks.splice(index, 1);
 
-        // If local storage is available then set the tasks to the local storage
-        // but only after converting the tasks array into an array of the values
         if( _storageAvail ){
 
             _storeTasksInJSON();
@@ -237,7 +230,7 @@ export const taskFunctions = (() => {
 
     const updateTask = (index) => {
 
-        console.log(`index is ${index}`);
+        // console.log(`index is ${index}`);
         
         const object = tasks[index];
 
@@ -249,8 +242,6 @@ export const taskFunctions = (() => {
 
         pubsub.publish('taskAdded', data );
 
-        // If local storage is available then set the tasks to the local storage
-        // but only after converting the tasks array into an array of the values
         if( _storageAvail ){
             
             _storeTasksInJSON();
@@ -262,7 +253,7 @@ export const taskFunctions = (() => {
 
     const updateTaskValues = (editData) => {
 
-        console.log(editData);
+        // console.log(editData);
 
         const task = tasks[editData.index];
 
