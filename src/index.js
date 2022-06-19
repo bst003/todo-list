@@ -4,6 +4,7 @@ import 'animate.css';
 
 import { compareAsc, format } from 'date-fns';
 
+
 import { generalFunctions } from "./modules/general";
 import { domFunctions } from "./modules/domStuff";
 import { pubsub } from "./modules/pubsub";

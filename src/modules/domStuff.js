@@ -741,14 +741,11 @@ export const domFunctions = (() => {
     pubsub.subscribe('renderAllTasks', renderTasksList);
 
     pubsub.subscribe('renderFilteredTasks', removeTaskElements);
-    // pubsub.subscribe('renderFilteredTasks', renderTasksListReduced);
     pubsub.subscribe('renderFilteredTasks', renderFilteredTasksContent);
 
     pubsub.subscribe('pageLoad', addShowAllTasksListener);
     pubsub.subscribe('pageLoad', addProjectFormListener);
     pubsub.subscribe('pageLoad', addTaskFormListener);
-    // pubsub.subscribe('pageLoad', setUpModal);
-    // pubsub.subscribe('pageLoad', addTaskElementsListeners);
 
 
     return {
