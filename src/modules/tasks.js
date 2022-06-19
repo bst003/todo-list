@@ -252,7 +252,7 @@ export const taskFunctions = (() => {
         // If local storage is available then set the tasks to the local storage
         // but only after converting the tasks array into an array of the values
         if( _storageAvail ){
-
+            
             _storeTasksInJSON();
 
         }
@@ -282,6 +282,12 @@ export const taskFunctions = (() => {
 
         pubsub.publish('taskAdded', data );
         pubsub.publish('postSubmitTask');
+
+        if( _storageAvail ){
+
+            _storeTasksInJSON();
+
+        }
 
     }
 
