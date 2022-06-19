@@ -304,8 +304,6 @@ export const domFunctions = (() => {
     // Task Related Functions
     const _toggleTaskElementStatus = (e) => {
 
-        console.log(e);
-
         const taskIndex = e.target.parentElement.parentElement.getAttribute('data-index');
 
         pubsub.publish('toggleTaskStatus', taskIndex);
@@ -316,8 +314,6 @@ export const domFunctions = (() => {
 
 
     const _deleteTaskElement = (e) => {
-
-        console.log(e);
 
         const taskIndex = e.target.parentElement.parentElement.getAttribute('data-index');
 
@@ -333,8 +329,6 @@ export const domFunctions = (() => {
 
 
     const _editTaskElement = (e) => {
-
-        console.log(e);
 
         const taskModalHeader = document.querySelector('#add-task-modal .h4 strong');
         _clearContent( taskModalHeader );
@@ -397,10 +391,6 @@ export const domFunctions = (() => {
 
         e.preventDefault();
 
-        console.log(e);
-
-        const form = e.target;
-
         const data = _gatherProjectFormValues();
 
         pubsub.publish('submitProject', data );
@@ -458,14 +448,11 @@ export const domFunctions = (() => {
 
         e.preventDefault();
 
-        console.log(e);
-
         const form = e.target;
 
         const data = _gatherTaskFormValues();
 
         if( form.getAttribute('data-edit-index') ) {
-            console.log('attribute exists');
 
             const index = form.getAttribute('data-edit-index');
 
@@ -544,8 +531,6 @@ export const domFunctions = (() => {
 
         if( object.tasks.length === 0 ){
 
-            console.log('no tasks in this project');
-
             const message = _createNoTaskMessage(object.projectIndex);
 
             _tasksList.appendChild(message);
@@ -560,8 +545,6 @@ export const domFunctions = (() => {
 
     const renderProject = (data) => {
 
-        // console.log(data);
-
         const project = _createProjectElement( data.object, data.array.length - 1 );
 
         project.addEventListener('click', _pushProjectFilterValue );
@@ -573,8 +556,6 @@ export const domFunctions = (() => {
 
     const renderProjectSelectOption = (data) => {
 
-        // console.log(data);
-
         const projectOption = _createProjectSelectElement( data.object, data.array.length );
 
         _projectsSelectValues.appendChild( projectOption );
@@ -584,15 +565,11 @@ export const domFunctions = (() => {
 
     const renderTask = ( data ) => {
 
-        console.log(data);
-
-
         if( _sortValue !== '' && data.object.getProject() === _sortValue ) {
 
             const task = _createTaskElement( data.object, data.array.length - 1, 'reduced' );
 
             _tasksList.appendChild( task );
-            console.log('add task without buttons');
 
             return;
 
@@ -611,7 +588,6 @@ export const domFunctions = (() => {
 
             _tasksList.appendChild( task );
             _addSingleTaskElementListeners( data.array.length - 1 );
-            console.log('null index');
 
             return;
         }
@@ -624,7 +600,6 @@ export const domFunctions = (() => {
             
             _tasksList.replaceChild(task, _tasksList.children[data.index] );
             _addSingleTaskElementListeners( data.index );
-            console.log( 'index accepted' );
 
             return;
         }
@@ -641,8 +616,6 @@ export const domFunctions = (() => {
             _tasksList.appendChild( task );
 
             addTaskElementsListeners();
-
-            console.log('this is a test');
 
         });
 
@@ -714,7 +687,6 @@ export const domFunctions = (() => {
 
     const populateTaskFormValues = (data) => {
 
-        console.log(new Date( data.getDueDate() ));
         document.querySelector('#task-title').value = data.getTitle();
         document.querySelector('#task-description').value = data.getDescription();
         document.querySelector('#task-due-date').valueAsDate = new Date( data.getDueDate() );
