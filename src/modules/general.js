@@ -1,5 +1,5 @@
 import { pubsub } from "./pubsub";
-
+const modal = require('../../node_modules/rmodal/index.js');
 
 export const generalFunctions = (() => {
 
@@ -7,7 +7,7 @@ export const generalFunctions = (() => {
 
     const Modal = ( modalElement, openModalElement, closeModalElement ) => {
 
-        const modalObject = new RModal(document.querySelector(modalElement), {
+        const modalObject = new modal(document.querySelector(modalElement), {
             dialogOpenClass: 'animate__fadeInDown',
             dialogCloseClass: 'animate__fadeOutUp'
         });

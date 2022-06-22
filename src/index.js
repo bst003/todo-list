@@ -1,3 +1,5 @@
+require('../node_modules/rmodal/dist/rmodal.css');
+
 import './assets/scss/styles.scss';
 
 import 'animate.css';

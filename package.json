@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
+    "babel": "babel src -d lib",
     "build": "webpack",
     "watch": "npx webpack --watch",
     "start": "webpack serve --open"
@@ -21,6 +22,9 @@
   },
   "homepage": "https://github.com/bst003/todo-list#readme",
   "devDependencies": {
+    "@babel/cli": "^7.17.10",
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
     "animate.css": "^4.1.1",
     "css-loader": "^6.7.1",
     "date-fns": "^2.28.0",
