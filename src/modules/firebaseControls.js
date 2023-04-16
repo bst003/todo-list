@@ -22,8 +22,16 @@ export const firebaseControlsFunctions = (() => {
     if (user) {
       console.log("user is logged in");
       console.log(user);
+
+      const userData = {
+        name: user.displayName,
+        pic: user.photoUrl,
+      };
+
+      pubsub.publish("onGoogleSignIn", userData);
     } else {
       console.log("user is not logged in");
+      pubsub.publish("onGoogleSignOut");
     }
   };
 

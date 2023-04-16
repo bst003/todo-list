@@ -538,14 +538,16 @@ export const domFunctions = (() => {
   };
 
   // Google Auth Dom related function
+  const userPic = document.querySelector("#user-pic");
+  const userName = document.querySelector("#user-name");
+  const signInButton = document.querySelector("#sign-in");
+  const signOutButton = document.querySelector("#sign-out");
 
   const triggerGoogleSignIn = () => {
     pubsub.publish("triggerGoogleSignIn");
   };
 
   const addSignInListener = () => {
-    const signInButton = document.querySelector("#sign-in");
-
     signInButton.addEventListener("click", triggerGoogleSignIn);
   };
 
@@ -554,9 +556,15 @@ export const domFunctions = (() => {
   };
 
   const addSignOutListener = () => {
-    const signOutButton = document.querySelector("#sign-out");
-
     signOutButton.addEventListener("click", triggerGoogleSignOut);
+  };
+
+  const updateOnSignIn = (userData) => {
+    console.log(userData);
+  };
+
+  const updateOnSignOut = () => {
+    console.log("update data on sign out");
   };
 
   // Form related functions
@@ -613,6 +621,9 @@ export const domFunctions = (() => {
 
   pubsub.subscribe("renderFilteredTasks", removeTaskElements);
   pubsub.subscribe("renderFilteredTasks", renderFilteredTasksContent);
+
+  pubsub.subscribe("onGoogleSignIn", updateOnSignIn);
+  pubsub.subscribe("onGoogleSignOut", updateOnSignOut);
 
   pubsub.subscribe("pageLoad", addShowAllTasksListener);
   pubsub.subscribe("pageLoad", addProjectFormListener);
