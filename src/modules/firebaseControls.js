@@ -17,6 +17,24 @@ import {
 import { getFirebaseConfig } from "../firebaseConfig.js";
 import { pubsub } from "./pubsub";
 
+/*
+
+Things to Do
+	- Don't allow submissions/editing/anything if user is not signed in
+		- Hide everything if user isn't signed in?
+		- Just add alert to necessary items? 
+			- Add Task btn
+			- All single task line items
+			- Add Project btn
+			- Delet Project btn
+	- Retrieve ToDo's from the Database
+	- Retrieve Projects from the Database
+
+	- Submit ToDo's to Database
+	- Submit Projects to Database
+
+*/
+
 export const firebaseControlsFunctions = (() => {
   const _authStateObserver = (user) => {
     if (user) {
