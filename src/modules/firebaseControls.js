@@ -25,7 +25,7 @@ export const firebaseControlsFunctions = (() => {
 
       const userData = {
         name: user.displayName,
-        pic: user.photoUrl,
+        pic: user.photoURL,
       };
 
       pubsub.publish("onGoogleSignIn", userData);

@@ -560,11 +560,17 @@ export const domFunctions = (() => {
   };
 
   const updateOnSignIn = (userData) => {
-    console.log(userData);
+    userPic.style.backgroundImage = `url("${userData.pic}?sz=150")`;
+    userName.innerText = userData.name;
+    signInButton.style.display = `none`;
+    signOutButton.style.display = `block`;
   };
 
   const updateOnSignOut = () => {
-    console.log("update data on sign out");
+    userPic.removeAttribute("style");
+    userName.innerText = "";
+    signInButton.style.display = `block`;
+    signOutButton.style.display = `none`;
   };
 
   // Form related functions

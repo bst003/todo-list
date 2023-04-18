@@ -60,6 +60,10 @@ body{
     justify-content: center;
 }
 
+.hidden{
+    display: none;
+}
+
 h1,
 .h1,
 h2,
@@ -106,6 +110,11 @@ h4,
 
     &:hover{
         background-color: $brandOne;
+    }
+
+    &.small{
+        font-size: 16px;
+        padding: 6px 14px;
     }
 
 }
@@ -172,6 +181,12 @@ header{
     padding: 12px 0px;
     background-color: $brandOne;
 
+    .wrap{
+        display: flex;
+        justify-content: space-between;
+        gap: 24px
+    }
+
     p{
         margin: 0px;
     }
@@ -180,6 +195,31 @@ header{
         color: $brandThree;
         font-size: 24px;
         font-weight: 700;
+    }
+
+    .user-controls{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 18px;
+    }
+
+    .user-info{
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        gap: 5px;
+    }
+
+    #user-pic{
+        height: 40px;
+        width: 40px;
+        border-radius: 100%;
+        background-size: cover;
+    }
+
+    #user-name{
+        font-weight: 600;
     }
 
 }
