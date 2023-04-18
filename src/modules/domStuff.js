@@ -4,11 +4,13 @@ import { compareAsc, format } from "date-fns";
 export const domFunctions = (() => {
   // Private variables/functions
 
+  const _siteContent = document.querySelector("#content");
   const _mainTitle = document.querySelector("#main-title");
   const _tasksList = document.querySelector("#tasks-list");
   const _projectsList = document.querySelector("#projects-list");
   const _projectsSelectValues = document.querySelector("#task-project");
   let _sortValue = "";
+  let _loggedIn = false;
   // let _storageCheck = false;
 
   // Appending and Clearing Content
@@ -189,6 +191,11 @@ export const domFunctions = (() => {
   // Project Related Functions
 
   const _deleteProject = (e) => {
+    if (!_loggedIn) {
+      alert("Only logged in users can delete projects");
+      return;
+    }
+
     const button = e.target;
     const projectIndex = button.getAttribute("data-project-index");
     const showAll = document.querySelector("#show-all-tasks");
@@ -236,6 +243,11 @@ export const domFunctions = (() => {
 
   // Task Related Functions
   const _toggleTaskElementStatus = (e) => {
+    if (!_loggedIn) {
+      alert("Only logged in users can delete tasks");
+      return;
+    }
+
     const taskIndex =
       e.target.parentElement.parentElement.getAttribute("data-index");
 
@@ -245,6 +257,11 @@ export const domFunctions = (() => {
   };
 
   const _deleteTaskElement = (e) => {
+    if (!_loggedIn) {
+      alert("Only logged in users can delete tasks");
+      return;
+    }
+
     const taskIndex =
       e.target.parentElement.parentElement.getAttribute("data-index");
 
@@ -308,6 +325,11 @@ export const domFunctions = (() => {
   const _submitProjectForm = (e) => {
     e.preventDefault();
 
+    if (!_loggedIn) {
+      alert("Only logged in users can submit projects");
+      return;
+    }
+
     const data = _gatherProjectFormValues();
 
     pubsub.publish("submitProject", data);
@@ -355,6 +377,11 @@ export const domFunctions = (() => {
 
   const _submitTaskForm = (e) => {
     e.preventDefault();
+
+    if (!_loggedIn) {
+      alert("Only logged in users can submit tasks");
+      return;
+    }
 
     const form = e.target;
 
@@ -564,6 +591,9 @@ export const domFunctions = (() => {
     userName.innerText = userData.name;
     signInButton.style.display = `none`;
     signOutButton.style.display = `block`;
+    _loggedIn = true;
+    _siteContent.classList.add("logged-in");
+    _siteContent.classList.remove("logged-out");
   };
 
   const updateOnSignOut = () => {
@@ -571,6 +601,9 @@ export const domFunctions = (() => {
     userName.innerText = "";
     signInButton.style.display = `block`;
     signOutButton.style.display = `none`;
+    _loggedIn = false;
+    _siteContent.classList.remove("logged-in");
+    _siteContent.classList.add("logged-out");
   };
 
   // Form related functions

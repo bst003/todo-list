@@ -23,10 +23,12 @@ Things to Do
 	- Don't allow submissions/editing/anything if user is not signed in
 		- Hide everything if user isn't signed in?
 		- Just add alert to necessary items? 
-			- Add Task btn
-			- All single task line items
-			- Add Project btn
-			- Delet Project btn
+			- Add boolean var to domStuff for log in status. Use that for alerts
+			- items
+				- Add Task btn
+				- All single task line items
+				- Add Project btn
+				- Delet Project btn
 	- Retrieve ToDo's from the Database
 	- Retrieve Projects from the Database
 
@@ -59,6 +61,8 @@ export const firebaseControlsFunctions = (() => {
 
     onAuthStateChanged(getAuth(), _authStateObserver);
     console.log("firebase setup triggered");
+
+    console.log(getAuth());
   };
   pubsub.subscribe("prePageLoad", firebaseSetup);
 

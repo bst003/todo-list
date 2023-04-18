@@ -184,6 +184,7 @@ header{
     .wrap{
         display: flex;
         justify-content: space-between;
+        align-items: center;
         gap: 24px
     }
 
@@ -238,6 +239,15 @@ header{
     padding: 40px 25px;
     width: clamp(320px, 20vw, 430px);
     background-color: darken($white, 7%);
+
+    #show-project-modal{
+
+        .logged-out &{
+            display: none;
+        }  
+
+    }
+        
 }
 
 #main{
@@ -247,6 +257,14 @@ header{
     .inner{
         margin: 0 auto;
         width: min(100%, 1220px);
+    }
+
+    #show-task-modal{
+
+        .logged-out &{
+            display: none;
+        }   
+
     }
 
 }
@@ -305,6 +323,11 @@ header{
     padding: 18px 12px;
     border-top: 1px solid $lightGray;
     text-align: center;
+
+    .logged-out & {
+        display: none;
+    }
+
 }
 
 .task-item{
@@ -398,6 +421,11 @@ header{
     .controls{
         display: flex;
         gap: 4px;
+
+        .logged-out & {
+            display: none;
+        }
+
     }
 
 }
