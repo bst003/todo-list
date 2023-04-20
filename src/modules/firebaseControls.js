@@ -12,10 +12,14 @@ import {
   collection,
   addDoc,
   getDocs,
+  query,
   serverTimestamp,
+  collectionGroup,
 } from "firebase/firestore/lite";
 import { getFirebaseConfig } from "../firebaseConfig.js";
 import { pubsub } from "./pubsub";
+
+import { format } from "date-fns";
 
 /*
 
@@ -55,12 +59,44 @@ export const firebaseControlsFunctions = (() => {
     }
   };
 
+  const _retrieveTasks = async () => {
+    console.log("retrieve tasks");
+    const tasksQuery = query(collection(getFirestore(), "tasks"));
+    console.log(tasksQuery);
+
+    const tasksQuerySnapshot = await getDocs(tasksQuery);
+    tasksQuerySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+
+      console.log(Date.parse(doc.data().dueDate));
+
+      const formattedDate = format(
+        Date.parse(doc.data().dueDate),
+        "MM-dd-yyyy"
+      );
+
+      const taskData = {
+        title: doc.data().title,
+        description: doc.data().description,
+        date: formattedDate,
+        priority: doc.data().priority,
+        project: doc.data().project,
+        status: doc.data().status,
+      };
+
+      pubsub.publish("submitTask", taskData);
+    });
+  };
+
   const firebaseSetup = () => {
     const firebaseAppConfig = getFirebaseConfig();
     initializeApp(firebaseAppConfig);
 
     onAuthStateChanged(getAuth(), _authStateObserver);
     console.log("firebase setup triggered");
+
+    _retrieveTasks();
 
     console.log(getAuth());
   };
@@ -102,40 +138,3 @@ export const firebaseControlsFunctions = (() => {
 //     console.error("Error writing new message to Firebase Database", error);
 //   }
 // }
-
-// console.log(app);
-// console.log(db);
-
-// saveTask();
-
-// console.log(getAuth());
-
-// const googleSignIn = async () => {
-//   try {
-//     const provider = new GoogleAuthProvider();
-//     signInWithPopup(getAuth(), provider);
-//   } catch (error) {
-//     console.log("sign in error: " + error);
-//   }
-// };
-
-// document.getElementById("sign-in").addEventListener("click", googleSignIn);
-
-// const googleSignOut = async () => {
-//   try {
-//     signOut(getAuth());
-//   } catch (error) {
-//     console.log("sign out error: " + error);
-//   }
-// };
-
-// document.getElementById("sign-out").addEventListener("click", googleSignOut);
-
-// onAuthStateChanged((user) => {
-//   if (user) {
-//     console.log("user is signed in");
-//     return;
-//   }
-
-//   console.log("user is signed out");
-// });

@@ -106,9 +106,9 @@ export const taskFunctions = (() => {
 
     // If local storage is available then set the tasks to the local storage
     // but only after converting the tasks array into an array of the values
-    if (_storageAvail) {
-      _storeTasksInJSON();
-    }
+    // if (_storageAvail) {
+    //   _storeTasksInJSON();
+    // }
   };
 
   const filterTasksList = (data) => {
