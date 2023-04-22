@@ -77,13 +77,18 @@ export const firebaseControlsFunctions = (() => {
       );
 
       const taskData = {
+        id: doc.data().id,
         title: doc.data().title,
         description: doc.data().description,
         date: formattedDate,
         priority: doc.data().priority,
         project: doc.data().project,
         status: doc.data().status,
+        timestamp: doc.data().timestamp.toDate(),
       };
+
+      console.log(taskData.status);
+      console.log(taskData.timestamp);
 
       pubsub.publish("submitTask", taskData);
     });
@@ -98,9 +103,13 @@ export const firebaseControlsFunctions = (() => {
 
     _retrieveTasks();
 
+    // saveTask();
+
     console.log(getAuth());
   };
   pubsub.subscribe("prePageLoad", firebaseSetup);
+
+  // Sign In/Our functions
 
   const googleSignIn = async () => {
     try {
@@ -122,19 +131,17 @@ export const firebaseControlsFunctions = (() => {
   pubsub.subscribe("triggerGoogleSignOut", googleSignOut);
 })();
 
-// async function saveTask(messageText) {
-//   // Add a new message entry to the Firebase database.
-//   try {
-//     await addDoc(collection(getFirestore(), "tasks"), {
-//       title: "Title Here",
-//       description: "description here",
-//       dueDate: "04/19/2023",
-//       priority: "low",
-//       project: "Default",
-//       status: "incomplete",
-//       timestamp: serverTimestamp(),
-//     });
-//   } catch (error) {
-//     console.error("Error writing new message to Firebase Database", error);
-//   }
-// }
+// CRUD functions
+
+async function saveTask(taskObj) {
+  // Add a new message entry to the Firebase database.
+  try {
+    await addDoc(collection(getFirestore(), "tasks"), {
+      ...taskObj,
+      timestamp: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error("Error writing new message to Firebase Database", error);
+  }
+}
+pubsub.subscribe("saveTaskToFirebase", saveTask);

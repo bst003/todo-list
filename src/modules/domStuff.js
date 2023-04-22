@@ -85,6 +85,7 @@ export const domFunctions = (() => {
   const _createTaskElement = (object, index, style = "standard") => {
     const task = document.createElement("div");
     task.setAttribute(`data-index`, index);
+    console.log(object.getStatus());
     task.classList.add(`task-item`, `status-${object.getStatus()}`);
 
     const priority = document.createElement("div");
@@ -607,7 +608,6 @@ export const domFunctions = (() => {
   };
 
   // Form related functions
-
   const populateTaskFormValues = (data) => {
     document.querySelector("#task-title").value = data.getTitle();
     document.querySelector("#task-description").value = data.getDescription();

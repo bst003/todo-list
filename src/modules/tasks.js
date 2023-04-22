@@ -1,25 +1,32 @@
 import { pubsub } from "./pubsub";
 import { generalFunctions } from "./general";
+import uniqid from "uniqid";
 
 export const taskFunctions = (() => {
   // Factories
 
   const factory = (
+    id,
     title,
     description,
     dueDate,
     priority,
     project,
-    status = "incomplete"
+    status = "incomplete",
+    timestamp
   ) => {
     const data = {
+      id: id,
       title: title,
       description: description,
       dueDate: dueDate,
       priority: priority,
       project: project,
       status: status,
+      timestamp: timestamp,
     };
+
+    const getID = () => data.id;
 
     const getDescription = () => (data.description ? data.description : "");
     const setDescription = (value) => (data.description = value);
@@ -35,6 +42,8 @@ export const taskFunctions = (() => {
 
     const getStatus = () => data.status;
 
+    const getTimestamp = () => (data.timestamp ? data.timestamp : "");
+
     const toggleStatus = () => {
       if (data.status === "incomplete") {
         data.status = "complete";
@@ -44,6 +53,7 @@ export const taskFunctions = (() => {
     };
 
     const baseMethods = {
+      getID,
       getDescription,
       setDescription,
       getDueDate,
@@ -53,6 +63,7 @@ export const taskFunctions = (() => {
       getProject,
       setProject,
       getStatus,
+      getTimestamp,
       toggleStatus,
     };
 
@@ -61,7 +72,7 @@ export const taskFunctions = (() => {
 
   // Private variables/functions
 
-  let _storageAvail = false;
+  // let _storageAvail = false;
 
   const _convertTasksListForStorage = (array) => {
     const newTasksArray = [];
@@ -82,13 +93,31 @@ export const taskFunctions = (() => {
     return newTasksArray;
   };
 
-  const _storeTasksInJSON = () => {
-    const storageTasks = _convertTasksListForStorage(tasks);
+  const _formatTaskDataForDB = (task) => {
+    console.log("timestamp: ");
+    console.log(task.getTimestamp());
 
-    const jsonTasks = JSON.stringify(storageTasks);
+    const taskData = {
+      id: task.getID(),
+      title: task.getTitle(),
+      description: task.getDescription(),
+      dueDate: task.getDueDate(),
+      priority: task.getPriority(),
+      project: task.getProject(),
+      status: task.getStatus(),
+      timestamp: task.getTimestamp(),
+    };
 
-    localStorage.setItem("tasksList", jsonTasks);
+    return taskData;
   };
+
+  // const _storeTasksInJSON = () => {
+  //   const storageTasks = _convertTasksListForStorage(tasks);
+
+  //   const jsonTasks = JSON.stringify(storageTasks);
+
+  //   localStorage.setItem("tasksList", jsonTasks);
+  // };
 
   // Public variables/functions
 
@@ -163,23 +192,48 @@ export const taskFunctions = (() => {
   const removeTask = (index) => {
     tasks.splice(index, 1);
 
-    if (_storageAvail) {
-      _storeTasksInJSON();
-    }
+    // if (_storageAvail) {
+    //   _storeTasksInJSON();
+    // }
   };
 
   const submitNewTask = (dataObject) => {
     const data = dataObject;
 
+    console.log(data.timestamp);
+    console.log(!data.timestamp);
+
+    if (!data.id) {
+      data.id = uniqid();
+    }
+
+    if (!data.timestamp) {
+      console.log("no timestamp found, leaving blank");
+      data.timestamp = "";
+    }
+
     const task = factory(
+      data.id,
       data.title,
       data.description,
       data.date,
       data.priority,
-      data.project
+      data.project,
+      data.status,
+      data.timestamp
     );
 
     addTask(task);
+
+    const taskData = _formatTaskDataForDB(task);
+
+    console.log(taskData);
+
+    // Only add to DB if the task is missing a timestamp
+    if (taskData.timestamp === "") {
+      console.log("timestamp is blank for: " + taskData.id);
+      pubsub.publish("saveTaskToFirebase", taskData);
+    }
 
     pubsub.publish("postSubmitTask");
   };
@@ -201,9 +255,9 @@ export const taskFunctions = (() => {
 
     pubsub.publish("taskAdded", data);
 
-    if (_storageAvail) {
-      _storeTasksInJSON();
-    }
+    // if (_storageAvail) {
+    //   _storeTasksInJSON();
+    // }
   };
 
   const updateTaskValues = (editData) => {
@@ -228,9 +282,9 @@ export const taskFunctions = (() => {
     pubsub.publish("taskAdded", data);
     pubsub.publish("postSubmitTask");
 
-    if (_storageAvail) {
-      _storeTasksInJSON();
-    }
+    // if (_storageAvail) {
+    //   _storeTasksInJSON();
+    // }
   };
 
   const toggleTaskStatus = (index) => {
