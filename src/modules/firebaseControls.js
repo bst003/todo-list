@@ -199,3 +199,16 @@ async function editTask(taskObj) {
   }
 }
 pubsub.subscribe("editTaskInFirebase", editTask);
+
+async function saveProject(projectObj) {
+  // Add a new message entry to the Firebase database.
+  try {
+    await addDoc(collection(getFirestore(), "projects"), {
+      ...projectObj,
+      timestamp: serverTimestamp(),
+    });
+  } catch (error) {
+    console.error("Error saving project to Firebase Database", error);
+  }
+}
+pubsub.subscribe("saveProjectToFirebase", saveProject);

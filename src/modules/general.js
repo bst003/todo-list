@@ -94,6 +94,10 @@ export const generalFunctions = (() => {
     setTitle: (value) => (data.title = value),
   });
 
+  const timestampMethods = (data) => ({
+    getTimestamp: () => (data.timestamp ? data.timestamp : ""),
+  });
+
   // PubSubs
   pubsub.subscribe("postSubmitProject", projectModal.closeModal);
 
@@ -109,5 +113,6 @@ export const generalFunctions = (() => {
     projectModal,
     taskModal,
     titleMethods,
+    timestampMethods,
   };
 })();

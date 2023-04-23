@@ -42,7 +42,7 @@ export const taskFunctions = (() => {
 
     const getStatus = () => data.status;
 
-    const getTimestamp = () => (data.timestamp ? data.timestamp : "");
+    // const getTimestamp = () => (data.timestamp ? data.timestamp : "");
 
     const toggleStatus = () => {
       if (data.status === "incomplete") {
@@ -63,11 +63,15 @@ export const taskFunctions = (() => {
       getProject,
       setProject,
       getStatus,
-      getTimestamp,
       toggleStatus,
     };
 
-    return Object.assign({}, generalFunctions.titleMethods(data), baseMethods);
+    return Object.assign(
+      {},
+      generalFunctions.titleMethods(data),
+      generalFunctions.timestampMethods(data),
+      baseMethods
+    );
   };
 
   // Private variables/functions
@@ -210,7 +214,7 @@ export const taskFunctions = (() => {
     console.log(!data.timestamp);
 
     if (!data.id) {
-      data.id = uniqid();
+      data.id = uniqid() + uniqid();
     }
 
     if (!data.timestamp) {
