@@ -85,22 +85,22 @@ export const projectFunctions = (() => {
     // }
   };
 
-  const populateProjectsFromStorage = () => {
-    if (_storageAvail) {
-      if (localStorage.getItem("projectsList")) {
-        const projectsString = localStorage.getItem("projectsList");
+  //   const populateProjectsFromStorage = () => {
+  //     if (_storageAvail) {
+  //       if (localStorage.getItem("projectsList")) {
+  //         const projectsString = localStorage.getItem("projectsList");
 
-        // convert string to valid object
-        const parsedProjects = JSON.parse(projectsString);
+  //         // convert string to valid object
+  //         const parsedProjects = JSON.parse(projectsString);
 
-        for (let i = 0; i < parsedProjects.length; i++) {
-          const project = factory(parsedProjects[i].title);
+  //         for (let i = 0; i < parsedProjects.length; i++) {
+  //           const project = factory(parsedProjects[i].title);
 
-          addProject(project);
-        }
-      }
-    }
-  };
+  //           addProject(project);
+  //         }
+  //       }
+  //     }
+  //   };
 
   const removeProject = (index) => {
     const projectData = {
@@ -155,7 +155,7 @@ export const projectFunctions = (() => {
 
   pubsub.subscribe("submitProject", submitNewProject);
 
-  pubsub.subscribe("pageLoad", populateProjectsFromStorage);
+  //   pubsub.subscribe("pageLoad", populateProjectsFromStorage);
 
   return {
     factory,
