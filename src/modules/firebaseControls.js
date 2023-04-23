@@ -18,6 +18,7 @@ import {
   query,
   serverTimestamp,
   where,
+  orderBy,
   collectionGroup,
 } from "firebase/firestore/lite";
 import { getFirebaseConfig } from "../firebaseConfig.js";
@@ -65,7 +66,10 @@ export const firebaseControlsFunctions = (() => {
 
   const _retrieveTasks = async () => {
     console.log("retrieve tasks");
-    const tasksQuery = query(collection(getFirestore(), "tasks"));
+    const tasksQuery = query(
+      collection(getFirestore(), "tasks"),
+      orderBy("timestamp")
+    );
     console.log(tasksQuery);
 
     const tasksQuerySnapshot = await getDocs(tasksQuery);
@@ -100,7 +104,10 @@ export const firebaseControlsFunctions = (() => {
 
   const _retrieveProjects = async () => {
     console.log("retrieve projects");
-    const projectsQuery = query(collection(getFirestore(), "projects"));
+    const projectsQuery = query(
+      collection(getFirestore(), "projects"),
+      orderBy("timestamp")
+    );
     console.log(projectsQuery);
 
     const projectsQuerySnapshot = await getDocs(projectsQuery);

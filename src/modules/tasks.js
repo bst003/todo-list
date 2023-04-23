@@ -165,29 +165,29 @@ export const taskFunctions = (() => {
     pubsub.publish("editTaskPopulateForm", data);
   };
 
-  const populateTasksFromStorage = () => {
-    if (_storageAvail) {
-      if (localStorage.getItem("tasksList")) {
-        const tasksString = localStorage.getItem("tasksList");
+  // const populateTasksFromStorage = () => {
+  //   if (_storageAvail) {
+  //     if (localStorage.getItem("tasksList")) {
+  //       const tasksString = localStorage.getItem("tasksList");
 
-        // convert string to valid object
-        const parsedTasks = JSON.parse(tasksString);
+  //       // convert string to valid object
+  //       const parsedTasks = JSON.parse(tasksString);
 
-        for (let i = 0; i < parsedTasks.length; i++) {
-          const task = factory(
-            parsedTasks[i].title,
-            parsedTasks[i].description,
-            parsedTasks[i].dueDate,
-            parsedTasks[i].priority,
-            parsedTasks[i].project,
-            parsedTasks[i].status
-          );
+  //       for (let i = 0; i < parsedTasks.length; i++) {
+  //         const task = factory(
+  //           parsedTasks[i].title,
+  //           parsedTasks[i].description,
+  //           parsedTasks[i].dueDate,
+  //           parsedTasks[i].priority,
+  //           parsedTasks[i].project,
+  //           parsedTasks[i].status
+  //         );
 
-          addTask(task);
-        }
-      }
-    }
-  };
+  //         addTask(task);
+  //       }
+  //     }
+  // }
+  // };
 
   const pushTasksList = () => {
     pubsub.publish("renderAllTasks", tasks);
@@ -349,7 +349,7 @@ export const taskFunctions = (() => {
 
   // pubsub.subscribe("updateTask", updateTask);
 
-  pubsub.subscribe("pageLoad", populateTasksFromStorage);
+  // pubsub.subscribe("pageLoad", populateTasksFromStorage);
 
   return {
     factory,
