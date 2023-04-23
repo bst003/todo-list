@@ -218,7 +218,7 @@ async function editTask(taskObj) {
       });
     });
   } catch (error) {
-    console.error("Error deleting task to Firebase Database", error);
+    console.error("Error deleting task from Firebase Database", error);
   }
 }
 pubsub.subscribe("editTaskInFirebase", editTask);
@@ -235,3 +235,23 @@ async function saveProject(projectObj) {
   }
 }
 pubsub.subscribe("saveProjectToFirebase", saveProject);
+
+async function deleteProject(projectObj) {
+  try {
+    const q = query(
+      collection(getFirestore(), "projects"),
+      where("id", "==", projectObj.id)
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach(async (docSnap) => {
+      console.log(docSnap.id, " => ", docSnap.data());
+
+      await deleteDoc(doc(getFirestore(), "projects", docSnap.id));
+    });
+  } catch (error) {
+    console.error("Error deleting project from Firebase Database", error);
+  }
+}
+pubsub.subscribe("deleteProjectFromFirebase", deleteProject);

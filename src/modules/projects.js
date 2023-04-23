@@ -103,7 +103,13 @@ export const projectFunctions = (() => {
   };
 
   const removeProject = (index) => {
+    const projectData = {
+      id: projects[index].getID(),
+    };
+
     projects.splice(index, 1);
+
+    pubsub.publish("deleteProjectFromFirebase", projectData);
 
     // if (_storageAvail) {
     //   _storeProjectsInJSON();
