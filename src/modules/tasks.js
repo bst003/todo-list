@@ -244,46 +244,74 @@ export const taskFunctions = (() => {
     pubsub.publish("postSubmitTask");
   };
 
-  const updateTaskStorageAvail = (bool) => {
-    _storageAvail = bool;
-  };
+  // const updateTaskStorageAvail = (bool) => {
+  //   _storageAvail = bool;
+  // };
 
-  const updateTask = (index) => {
-    // console.log(`index is ${index}`);
+  // const updateTask = (index) => {
+  //   // console.log(`index is ${index}`);
+  //   console.log("update task in tasks");
 
-    const object = tasks[index];
+  //   const object = tasks[index];
 
-    const data = {
-      object: object,
-      array: tasks,
-      index: index,
-    };
+  //   const data = {
+  //     object: object,
+  //     array: tasks,
+  //     index: index,
+  //   };
 
-    pubsub.publish("taskAdded", data);
+  //   // const taskData = {
+  //   //   id: tasks[index].getID(),
+  //   //   title: tasks[index].getTitle(),
+  //   //   description: tasks[index].getDescription(),
+  //   //   date: tasks[index].getDueDate(),
+  //   //   priority: tasks[index].getPriority(),
+  //   //   project: tasks[index].getProject(),
+  //   //   status: tasks[index].getStatus(),
+  //   //   timestamp: tasks[index].getTimestamp(),
+  //   // };
 
-    // if (_storageAvail) {
-    //   _storeTasksInJSON();
-    // }
-  };
+  //   // pubsub.publish("editTaskInFirebase", taskData);
+  //   pubsub.publish("taskAdded", data);
+
+  //   // if (_storageAvail) {
+  //   //   _storeTasksInJSON();
+  //   // }
+  // };
 
   const updateTaskValues = (editData) => {
-    // console.log(editData);
+    console.log(editData);
 
     const task = tasks[editData.index];
 
-    const values = editData.object;
+    if (editData.object) {
+      const values = editData.object;
 
-    task.setTitle(values.title);
-    task.setDescription(values.description);
-    task.setDueDate(values.date);
-    task.setPriority(values.priority);
-    task.setProject(values.project);
+      task.setTitle(values.title);
+      task.setDescription(values.description);
+      task.setDueDate(values.date);
+      task.setPriority(values.priority);
+      task.setProject(values.project);
+    }
 
     const data = {
       object: task,
       array: tasks,
       index: editData.index,
     };
+
+    const taskData = {
+      id: tasks[editData.index].getID(),
+      title: tasks[editData.index].getTitle(),
+      description: tasks[editData.index].getDescription(),
+      date: tasks[editData.index].getDueDate(),
+      priority: tasks[editData.index].getPriority(),
+      project: tasks[editData.index].getProject(),
+      status: tasks[editData.index].getStatus(),
+      timestamp: tasks[editData.index].getTimestamp(),
+    };
+
+    pubsub.publish("editTaskInFirebase", taskData);
 
     pubsub.publish("taskAdded", data);
     pubsub.publish("postSubmitTask");
@@ -299,7 +327,7 @@ export const taskFunctions = (() => {
 
   // PubSubs
 
-  pubsub.subscribe("checkStorage", updateTaskStorageAvail);
+  // pubsub.subscribe("checkStorage", updateTaskStorageAvail);
 
   pubsub.subscribe("filterTasks", filterTasksList);
 
@@ -315,7 +343,7 @@ export const taskFunctions = (() => {
 
   pubsub.subscribe("toggleTaskStatus", toggleTaskStatus);
 
-  pubsub.subscribe("updateTask", updateTask);
+  // pubsub.subscribe("updateTask", updateTask);
 
   pubsub.subscribe("pageLoad", populateTasksFromStorage);
 

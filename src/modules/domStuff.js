@@ -252,9 +252,13 @@ export const domFunctions = (() => {
     const taskIndex =
       e.target.parentElement.parentElement.getAttribute("data-index");
 
-    pubsub.publish("toggleTaskStatus", taskIndex);
+    const updateData = {
+      index: taskIndex,
+    };
 
-    pubsub.publish("updateTask", taskIndex);
+    pubsub.publish("toggleTaskStatus", updateData.index);
+
+    pubsub.publish("submitEditedTask", updateData);
   };
 
   const _deleteTaskElement = (e) => {

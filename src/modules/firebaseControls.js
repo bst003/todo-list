@@ -169,3 +169,33 @@ async function deleteTask(taskObj) {
   }
 }
 pubsub.subscribe("deleteTaskFromFirebase", deleteTask);
+
+async function editTask(taskObj) {
+  try {
+    const q = query(
+      collection(getFirestore(), "tasks"),
+      where("id", "==", taskObj.id)
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach(async (docSnap) => {
+      console.log("updating:");
+      console.log(docSnap.id, " => ", docSnap.data());
+
+      await updateDoc(doc(getFirestore(), "tasks", docSnap.id), {
+        id: taskObj.id,
+        title: taskObj.title,
+        description: taskObj.description,
+        dueDate: taskObj.date,
+        priority: taskObj.priority,
+        project: taskObj.project,
+        status: taskObj.status,
+        timestamp: serverTimestamp(),
+      });
+    });
+  } catch (error) {
+    console.error("Error deleting task to Firebase Database", error);
+  }
+}
+pubsub.subscribe("editTaskInFirebase", editTask);
