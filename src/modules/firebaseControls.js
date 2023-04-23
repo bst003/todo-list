@@ -10,10 +10,14 @@ import {
 import {
   getFirestore,
   collection,
+  doc,
   addDoc,
+  deleteDoc,
   getDocs,
+  updateDoc,
   query,
   serverTimestamp,
+  where,
   collectionGroup,
 } from "firebase/firestore/lite";
 import { getFirebaseConfig } from "../firebaseConfig.js";
@@ -141,7 +145,27 @@ async function saveTask(taskObj) {
       timestamp: serverTimestamp(),
     });
   } catch (error) {
-    console.error("Error writing new message to Firebase Database", error);
+    console.error("Error saving task to Firebase Database", error);
   }
 }
 pubsub.subscribe("saveTaskToFirebase", saveTask);
+
+async function deleteTask(taskObj) {
+  try {
+    const q = query(
+      collection(getFirestore(), "tasks"),
+      where("id", "==", taskObj.id)
+    );
+
+    const querySnapshot = await getDocs(q);
+
+    querySnapshot.forEach(async (docSnap) => {
+      console.log(docSnap.id, " => ", docSnap.data());
+
+      await deleteDoc(doc(getFirestore(), "tasks", docSnap.id));
+    });
+  } catch (error) {
+    console.error("Error deleting task to Firebase Database", error);
+  }
+}
+pubsub.subscribe("deleteTaskFromFirebase", deleteTask);

@@ -190,11 +190,17 @@ export const taskFunctions = (() => {
   };
 
   const removeTask = (index) => {
+    const taskData = {
+      id: tasks[index].getID(),
+    };
+
     tasks.splice(index, 1);
 
     // if (_storageAvail) {
     //   _storeTasksInJSON();
     // }
+
+    pubsub.publish("deleteTaskFromFirebase", taskData);
   };
 
   const submitNewTask = (dataObject) => {
