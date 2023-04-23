@@ -98,6 +98,28 @@ export const firebaseControlsFunctions = (() => {
     });
   };
 
+  const _retrieveProjects = async () => {
+    console.log("retrieve projects");
+    const projectsQuery = query(collection(getFirestore(), "projects"));
+    console.log(projectsQuery);
+
+    const projectsQuerySnapshot = await getDocs(projectsQuery);
+    projectsQuerySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      console.log(doc.id, " => ", doc.data());
+
+      const projectData = {
+        id: doc.data().id,
+        title: doc.data().title,
+        timestamp: doc.data().timestamp.toDate(),
+      };
+
+      console.log(projectData.timestamp);
+
+      pubsub.publish("submitProject", projectData);
+    });
+  };
+
   const firebaseSetup = () => {
     const firebaseAppConfig = getFirebaseConfig();
     initializeApp(firebaseAppConfig);
@@ -105,6 +127,7 @@ export const firebaseControlsFunctions = (() => {
     onAuthStateChanged(getAuth(), _authStateObserver);
     console.log("firebase setup triggered");
 
+    _retrieveProjects();
     _retrieveTasks();
 
     // saveTask();
